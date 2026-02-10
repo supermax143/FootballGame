@@ -1,0 +1,127 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Core.Domain.Services;
+using Unity.Infrastructure.ResourceManager;
+using UnityEngine;
+using Zenject;
+
+namespace Core.Application.Localization
+{
+    internal class LocalizationController : ILocalization
+    {
+
+        [Inject] private IResourceManager _resourceManager;
+        
+        public event Action<string> LanguageChanged;
+
+        private const string LOCALIZATION_KEY = "Localization";
+        
+        private readonly Dictionary<string, string> _currentLanguageTable = new();
+
+
+        public string CurrentLanguageCode { get; private set; }
+        
+        public bool Initialized { get; private set; }
+
+        public List<string> LanguageCodes => _languageCodes;
+
+        private List<string> _languageCodes;
+        private Dictionary<string, Dictionary<string, string>> _allLanguages;
+        public async Task Initialize()
+        {
+            var localizationText = await _resourceManager.Load<TextAsset>(LOCALIZATION_KEY, GetTag());
+            Initialize(localizationText?.text);
+        }
+
+        public bool TryGetLanguageCodes(out IEnumerable<string> codes)
+        {
+            codes = _languageCodes;
+            return Initialized;
+        }
+        
+        private string GetTag()
+        {
+            return GetHashCode().ToString();
+        }
+
+        private void Initialize(string csvText)
+        {
+            if (!CSVParser.TryParse(csvText, out var data))
+            {
+                return;
+            }
+
+            _languageCodes = data.LanguageCodes;
+            _allLanguages = data.AllLanguages;
+            
+            Initialized =  true;
+            SetLanguage(_languageCodes.First());
+        }
+
+       
+        public void SetLanguage(string languageCode)
+        {
+            if (!Initialized)
+            {
+                return;
+            }
+            
+            if (string.IsNullOrWhiteSpace(languageCode))
+            {
+                Debug.LogWarning("[LocalizationController] Пустой код языка. Игнорируем.");
+                return;
+            }
+
+            languageCode = languageCode.Trim();
+
+            if (!_allLanguages.TryGetValue(languageCode, out var table))
+            {
+                Debug.LogWarning($"[LocalizationController] Язык '{languageCode}' не найден. Остаёмся на '{CurrentLanguageCode}'.");
+                return;
+            }
+
+            if (string.Equals(CurrentLanguageCode, languageCode, StringComparison.OrdinalIgnoreCase))
+                return;
+
+            _currentLanguageTable.Clear();
+            foreach (var kvp in table)
+            {
+                _currentLanguageTable[kvp.Key] = kvp.Value;
+            }
+
+            CurrentLanguageCode = languageCode;
+
+            LanguageChanged?.Invoke(languageCode);
+        }
+
+        
+        public string Get(string key)
+        {
+            if (!Initialized || string.IsNullOrEmpty(key))
+                return string.Empty;
+
+            if (_currentLanguageTable.TryGetValue(key, out var value) && !string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+
+            return key;
+        }
+
+      
+        public bool TryGet(string key, out string value)
+        {
+            if (!Initialized || string.IsNullOrEmpty(key))
+            {
+                value = string.Empty;
+                return false;
+            }
+
+            return _currentLanguageTable.TryGetValue(key, out value);
+        }
+
+    }
+}
+
