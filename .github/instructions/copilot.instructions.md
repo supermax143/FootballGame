@@ -26,12 +26,13 @@ Project
 │  │  ├─ Models                   ← Domain entities (POCO)
 │  │  └─ Contracts / Interfaces   ← System capability contracts
 │  │
-│  └─ Application                 ← Application flow & use-cases
+│  └─ Application                 ← Application flow & use-cases(Unity-agnostic)
 │     ├─ StateMachine             ← Application lifecycle control
 │     │  └─ States                ← Scenarios (Init, Menu, Game, etc.)
 │     ├─ UseCases / Commands      ← Application actions
 │     ├─ Application Models       ← Application-level state
 │     └─ Services                 ← Coordinators (e.g. localization)
+│     └─ Installers               ← Dependency injection Application classes and Interfaces setup (e.g. Zenject)
 │
 └─ Unity                          ← Technical / framework layer
    ├─ Bootstrap                   ← Startup & composition root
@@ -42,6 +43,8 @@ Project
    │  ├─ Scene Loading            ← IScenesLoader implementations
    │  ├─ Resources                ← IResourceManager implementations
    │  └─ Windows System           ← IWindowsController implementations
+   │
+   ├─ Installers                   ← Dependency injection Unity classes and Interfaces setup (e.g. Zenject)
    │
    └─ Presentation                ← UI / View layer
       ├─ Views / Screens          ← Screens and panels
