@@ -1,5 +1,7 @@
+
 # MCP Instructions
 - Always use context7 MCP when I need library/API documentation, code generation, setup or configuratio
+- Use unityMCP to interact with unity editor
 
 # GitHub Copilot Instructions (Unity/C#)
 
