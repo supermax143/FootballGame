@@ -18,8 +18,9 @@ namespace Core.Application.ApplicationSession.States
          OnStateExit();
       }
 
-      public virtual void StartGame() { }
-
+      public virtual void StartHost() { }
+      public virtual void StartClient() { }
+      
 
       protected abstract void OnStateEnter();
       

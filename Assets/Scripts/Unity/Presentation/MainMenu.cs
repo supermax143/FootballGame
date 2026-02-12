@@ -39,9 +39,15 @@ namespace Unity.Presentation
 			 _localization.SetLanguage(_languageSelector.options[value].text);
 		}
 
-		public void StartGame()
+		public void OnHostClick()
 		{
-			_applicationSession.CurrentState.StartGame();
+			_applicationSession.CurrentState.StartHost();
 		}
+		
+		public void OnClientClick()
+		{
+			_applicationSession.CurrentState.StartHost();
+		}
+		
 	}
 }

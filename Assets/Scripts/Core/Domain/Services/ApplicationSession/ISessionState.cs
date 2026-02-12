@@ -2,7 +2,8 @@
 {
    public interface ISessionState
    {
-      void StartGame();
+      void StartHost();
+      void StartClient();
    }
 }
 

@@ -5,6 +5,7 @@ using Unity.Bootstrap.GameInitializer.InitializeSteps;
 using Unity.Infrastructure.ResourceManager;
 using Unity.Infrastructure.Scenes;
 using Unity.Infrastructure.Windows;
+using Unity.Netcode;
 using UnityEngine;
 using Zenject;
 
@@ -31,6 +32,7 @@ namespace Unity.Bootstrap.Installers
          Container.BindInterfacesAndSelfTo<WindowsController>().FromInstance(_windowsController);
          Container.BindInterfacesAndSelfTo<GameInitializer.GameInitializer>().AsSingle();
          Container.BindInterfacesAndSelfTo<ResourceManager>().AsSingle();
+         Container.BindInterfacesAndSelfTo<NetworkManager>().AsSingle();
          
          //Initialization
          Container.Bind<InitializeStepBase>().To<InitLocalizationStep>().AsTransient();
