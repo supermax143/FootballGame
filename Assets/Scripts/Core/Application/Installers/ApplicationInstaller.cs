@@ -15,7 +15,9 @@ namespace Core.Application.Installers
          
          // Session
          Container.Bind<InitState>().AsTransient();
-         Container.Bind<MainMenuState>().AsTransient();
+         Container.Bind<OfflineState>().AsTransient();
+         Container.Bind<StartHostingState>().AsTransient();
+         Container.Bind<HostingState>().AsTransient();
          Container.Bind<GameState>().AsTransient();
          Container.BindInterfacesAndSelfTo<ApplicationSession.ApplicationStateMachine>().AsSingle().NonLazy();
          

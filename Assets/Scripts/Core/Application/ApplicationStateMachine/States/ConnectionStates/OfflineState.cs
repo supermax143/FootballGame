@@ -4,11 +4,11 @@ using Zenject;
 
 namespace Core.Application.ApplicationSession.States
 {
-   internal class MainMenuState : SessionStateBase
+   internal class OfflineState : SessionStateBase
    {
 
       [Inject] IScenesLoader _scenesLoader;
-      [Inject] INetworkManager _networkManager;
+      [Inject] INetworkController _networkController;
       
       protected override void OnStateEnter()
       {
@@ -17,13 +17,13 @@ namespace Core.Application.ApplicationSession.States
       
       public override void StartHost() 
       {
-         _networkManager.StartHost();
+         _networkController.StartHost();
          ApplicationStateMachine.ChangeState<GameState>();
       }
 
       public override void StartClient()
       {
-         _networkManager.StartClient();
+         _networkController.StartClient();
       }
    }
 }

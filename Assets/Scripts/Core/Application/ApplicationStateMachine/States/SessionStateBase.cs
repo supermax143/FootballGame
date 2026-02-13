@@ -20,7 +20,16 @@ namespace Core.Application.ApplicationSession.States
 
       public virtual void StartHost() { }
       public virtual void StartClient() { }
-      
+      public virtual void StartServer() { }
+      public virtual void ServerStartedHandler() { }
+      public virtual void ClientConnectedHandler(ulong id)
+      {
+      }
+
+      public virtual void ClientDisconnectHandler(ulong id)
+      {
+      }
+
 
       protected abstract void OnStateEnter();
       

@@ -33,10 +33,12 @@ namespace Unity.Bootstrap.Installers
          Container.BindInterfacesAndSelfTo<GameInitializer.GameInitializer>().AsSingle();
          Container.BindInterfacesAndSelfTo<ResourceManager>().AsSingle();
          Container.BindInterfacesAndSelfTo<NetworkManager>().AsSingle();
+         Container.BindInstance(NetworkManager.Singleton).AsSingle();
+         
+         
          
          //Initialization
          Container.Bind<InitializeStepBase>().To<InitLocalizationStep>().AsTransient();
-         Container.Bind<InitializeStepBase>().To<LoginStep>().AsTransient();
          Container.Bind<InitializeStepBase>().To<LoadAssetsStep>().AsTransient();
       }
 
