@@ -1,17 +1,14 @@
 ﻿using System;
+using Core.Application.ApplicationSession;
 using Core.Domain.Services;
 using Core.Domain.Services.ApplicationSession;
-using Cysharp.Threading.Tasks.Triggers;
-using NUnit.Framework;
 using UnityEngine;
 using Zenject;
 
 namespace Unity.Presentation
 {
-    [RequireComponent(typeof(MainMenuView))]
     public class MainMenuPresenter : MonoBehaviour
     {
-        
         
         [SerializeField, HideInInspector]
         private MainMenuView _view;
@@ -29,15 +26,23 @@ namespace Unity.Presentation
             _view.OnClientClicked += ClientClickedHandler;
             _view.OnHostClicked += HostClickedHandler;
             _view.OnLanguageChanged += LanguageChangedHandler;
+            _view.OnDisconnectClicked += DisconnectClickedHandler;
+            _applicationSession.OnConnectionStatusChanged += ConnectionStatusChangedHandler;
             
             if (!_localization.TryGetLanguageCodes(out var langugeCodes))
             {
                 langugeCodes = Array.Empty<string>();
             }
 
-            _view.Init(langugeCodes);
+            _view.Init(langugeCodes, _applicationSession.ConnectionStatus);
         }
-        
+
+
+        private void ConnectionStatusChangedHandler(ConnectionStatus connectionStatus)
+        {
+            _view.UpdateButtons(connectionStatus);
+        }
+
         private void LanguageChangedHandler(string languageCode)
             => _localization.SetLanguage(languageCode);
 
@@ -46,5 +51,17 @@ namespace Unity.Presentation
 
         private void ClientClickedHandler()
             => _applicationSession.CurrentState.StartClient();
+        private void DisconnectClickedHandler()
+        {
+            _applicationSession.CurrentState.Disconnect();
+        }
+
+        private void OnDestroy()
+        {
+            _view.OnClientClicked -= ClientClickedHandler;
+            _view.OnHostClicked -= HostClickedHandler;
+            _view.OnLanguageChanged -= LanguageChangedHandler;
+            _applicationSession.OnConnectionStatusChanged -= ConnectionStatusChangedHandler;
+        }
     }
 }

@@ -2,6 +2,7 @@ using Core.Application.ApplicationSession;
 using Core.Application.ApplicationSession.States;
 using Core.Application.Localization;
 using Unity.Bootstrap.GameInitializer.InitializeSteps;
+using Unity.Infrastructure.Network;
 using Unity.Infrastructure.ResourceManager;
 using Unity.Infrastructure.Scenes;
 using Unity.Infrastructure.Windows;
@@ -11,16 +12,20 @@ using Zenject;
 
 namespace Unity.Bootstrap.Installers
 {
+   [RequireComponent(typeof(WindowsController), typeof(NetworkManager))]
    internal class UnityInstaller : MonoInstaller
    {
 
       [SerializeField, HideInInspector]
       private WindowsController _windowsController;
+      [SerializeField, HideInInspector]
+      private NetworkManager _networkManager;
       
       
       private void OnValidate()
       {
          _windowsController = GetComponent<WindowsController>();
+         _networkManager = GetComponent<NetworkManager>();
       }
 
 
@@ -32,8 +37,8 @@ namespace Unity.Bootstrap.Installers
          Container.BindInterfacesAndSelfTo<WindowsController>().FromInstance(_windowsController);
          Container.BindInterfacesAndSelfTo<GameInitializer.GameInitializer>().AsSingle();
          Container.BindInterfacesAndSelfTo<ResourceManager>().AsSingle();
-         Container.BindInterfacesAndSelfTo<NetworkManager>().AsSingle();
-         Container.BindInstance(NetworkManager.Singleton).AsSingle();
+         Container.BindInstance(_networkManager).AsSingle().NonLazy();
+         Container.BindInterfacesAndSelfTo<NetworkController>().AsSingle();
          
          
          

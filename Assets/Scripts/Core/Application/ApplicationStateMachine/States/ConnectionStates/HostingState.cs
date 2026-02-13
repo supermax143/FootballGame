@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Application.Models;
 using Core.Domain.Models;
 using Unity.Infrastructure.Network;
@@ -15,9 +16,20 @@ namespace Core.Application.ApplicationSession.States
         
         private List<ulong> _clients = new();
         
-        protected override void OnStateEnter()
+        protected override Task OnStateEnter()
         {
-            
+            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
+            return Task.CompletedTask;
+        }
+
+        public override void Disconnect()
+        {
+            _networkController.StopHost();
+        }
+
+        public override void ServerStoppedHandler()
+        {
+            ApplicationStateMachine.ChangeState<OfflineState>();
         }
 
         public override void ClientConnectedHandler(ulong id, bool local)

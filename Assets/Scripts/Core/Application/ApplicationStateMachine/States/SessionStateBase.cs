@@ -1,4 +1,5 @@
-﻿using Core.Domain.Services.ApplicationSession;
+﻿using System.Threading.Tasks;
+using Core.Domain.Services.ApplicationSession;
 using Zenject;
 
 namespace Core.Application.ApplicationSession.States
@@ -31,8 +32,16 @@ namespace Core.Application.ApplicationSession.States
       {
       }
 
+      public virtual void Disconnect()
+      {
+      }
 
-      protected abstract void OnStateEnter();
+      public virtual void ServerStoppedHandler()
+      {
+      }
+
+
+      protected abstract Task OnStateEnter();
       
       protected virtual void OnStateExit() 
       {

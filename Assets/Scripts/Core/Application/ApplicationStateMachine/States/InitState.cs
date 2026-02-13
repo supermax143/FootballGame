@@ -1,4 +1,5 @@
-﻿using Core.Domain.Services;
+﻿using System.Threading.Tasks;
+using Core.Domain.Services;
 using Shared.Constants;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace Core.Application.ApplicationSession.States
       [Inject] private IScenesLoader _scenesLoader;
       [Inject] private IGameInitializer _gameInitializer;
       
-      protected override async void OnStateEnter()
+      protected override async Task OnStateEnter()
       {
          if (_scenesLoader.CurScene != SceneNames.InitGameScene)
          {

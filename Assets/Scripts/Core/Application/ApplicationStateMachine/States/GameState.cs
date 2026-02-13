@@ -1,4 +1,5 @@
-﻿using Core.Domain.Services;
+﻿using System.Threading.Tasks;
+using Core.Domain.Services;
 using Zenject;
 
 namespace Core.Application.ApplicationSession.States {
@@ -7,9 +8,9 @@ namespace Core.Application.ApplicationSession.States {
 		
 		[Inject] IScenesLoader _scenesLoader;
 		
-		protected override void OnStateEnter()
+		protected override async Task OnStateEnter()
 		{
-			_scenesLoader.LoadGameScene();
+			await _scenesLoader.LoadGameScene();
 		}
 	}
 }

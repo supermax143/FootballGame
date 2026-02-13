@@ -8,6 +8,8 @@
       void ServerStartedHandler();
       void ClientConnectedHandler(ulong id, bool local);
       void ClientDisconnectHandler(ulong id, bool local);
+      void Disconnect();
+      void ServerStoppedHandler();
    }
 }
 

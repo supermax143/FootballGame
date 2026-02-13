@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Domain.Services.ApplicationSession;
+﻿using Core.Domain.Services.ApplicationSession;
 using Unity.Netcode;
 using Zenject;
 
@@ -14,10 +13,13 @@ namespace Unity.Infrastructure.Network
         public void Initialize()
         {
             _networkManager.OnServerStarted += ServerStartedHandler;
+            _networkManager.OnServerStopped += ServerStoppedHandler;
             _networkManager.OnClientConnectedCallback += ClientConnectedHandler;
             _networkManager.OnClientDisconnectCallback += ClientDisconnectHandler;
             _networkManager.OnConnectionEvent += ConnectionEventHandler;
         }
+
+       
 
         public bool IsLocalClient(ulong clientId)
         {
@@ -56,16 +58,27 @@ namespace Unity.Infrastructure.Network
             _session.CurrentState.ServerStartedHandler();
         }
 
+        private void ServerStoppedHandler(bool value)
+        {
+            _session.CurrentState.ServerStoppedHandler();
+        }
+        
         public void StartServer()
         {
             _networkManager.StartServer();
         }
-        
+
+
         public void StartHost()
         {
             _networkManager.StartHost();
         }
-        
+
+        public void StopHost()
+        {
+            _networkManager.Shutdown();
+        }
+
         public void StartClient()
         {
             _networkManager.StartClient();

@@ -1,4 +1,6 @@
-﻿using Core.Domain.Services;
+﻿using System.Threading.Tasks;
+using Core.Domain.Services;
+using Shared.Constants;
 using Unity.Infrastructure.Network;
 using Zenject;
 
@@ -10,15 +12,19 @@ namespace Core.Application.ApplicationSession.States
       [Inject] IScenesLoader _scenesLoader;
       [Inject] INetworkController _networkController;
       
-      protected override void OnStateEnter()
+      protected override async Task OnStateEnter()
       {
-         _scenesLoader.LoadMainMenuScene();
+         if (_scenesLoader.CurScene != SceneNames.MainMenuScene)
+         {
+            await _scenesLoader.LoadMainMenuScene();
+         }
+         ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Offline;
       }
       
       public override void StartHost() 
       {
          _networkController.StartHost();
-         ApplicationStateMachine.ChangeState<GameState>();
+         ApplicationStateMachine.ChangeState<StartHostingState>();
       }
 
       public override void StartClient()
