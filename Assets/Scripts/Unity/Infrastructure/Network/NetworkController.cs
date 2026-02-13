@@ -11,9 +11,6 @@ namespace Unity.Infrastructure.Network
         [Inject] private IApplicationSession _session;
         [Inject] private NetworkManager _networkManager;
         
-        
-        
-        
         public void Initialize()
         {
             _networkManager.OnServerStarted += ServerStartedHandler;
@@ -22,27 +19,35 @@ namespace Unity.Infrastructure.Network
             _networkManager.OnConnectionEvent += ConnectionEventHandler;
         }
 
+        public bool IsLocalClient(ulong clientId)
+        {
+            return _networkManager.LocalClient != null && 
+                   clientId == _networkManager.LocalClient.ClientId;
+        }
+        
         private void ConnectionEventHandler(NetworkManager manager, ConnectionEventData data)
         {
+            var local = IsLocalClient(data.ClientId);
+            
             switch (data.EventType)
             {
                 case ConnectionEvent.ClientConnected:
-                    _session.CurrentState.ClientConnectedHandler(data.ClientId);
+                    _session.CurrentState.ClientConnectedHandler(data.ClientId, local);
                     break;
                 case ConnectionEvent.ClientDisconnected:
-                    _session.CurrentState.ClientDisconnectHandler(data.ClientId);
+                    _session.CurrentState.ClientDisconnectHandler(data.ClientId, local);
                     break;
             }
         }
 
         private void ClientConnectedHandler(ulong id)
         {
-            _session.CurrentState.ClientConnectedHandler(id);
+            _session.CurrentState.ClientConnectedHandler(id, IsLocalClient(id));
         }
         
         private void ClientDisconnectHandler(ulong id)
         {
-            _session.CurrentState.ClientDisconnectHandler(id);
+            _session.CurrentState.ClientDisconnectHandler(id, IsLocalClient(id));
         }
 
 

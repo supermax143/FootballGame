@@ -8,13 +8,30 @@ namespace Core.Application.ApplicationSession
    internal class ApplicationStateMachine : IApplicationSession, IInitializable
    {
 
+      public event Action<ConnectionStatus> OnConnectionStatusChanged; 
+      
       public event Action<ISessionState> OnStateChanged;
       
       [Inject] private DiContainer _container;
 
       private ISessionStateInternal _currentState;
+      private ConnectionStatus _connectionStatus = ConnectionStatus.Offline;
 
       public ISessionState CurrentState => _currentState;
+
+      public ConnectionStatus ConnectionStatus
+      {
+         get => _connectionStatus;
+         internal set
+         {
+            if (value == _connectionStatus)
+            {
+               return;
+            }
+            _connectionStatus = value;
+            OnConnectionStatusChanged?.Invoke(_connectionStatus);
+         }
+      }
 
       public void Initialize()
       {

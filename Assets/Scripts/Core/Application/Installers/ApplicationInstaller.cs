@@ -18,6 +18,8 @@ namespace Core.Application.Installers
          Container.Bind<OfflineState>().AsTransient();
          Container.Bind<StartHostingState>().AsTransient();
          Container.Bind<HostingState>().AsTransient();
+         Container.Bind<ClientConnectingState>().AsTransient();
+         Container.Bind<ClientConnectedState>().AsTransient();
          Container.Bind<GameState>().AsTransient();
          Container.BindInterfacesAndSelfTo<ApplicationSession.ApplicationStateMachine>().AsSingle().NonLazy();
          
@@ -26,7 +28,7 @@ namespace Core.Application.Installers
          Container.Bind<LoginUserCommand>().AsTransient();
          
          //Models
-         Container.BindInterfacesAndSelfTo<MainModel>().AsTransient();
+         Container.BindInterfacesAndSelfTo<ClientModel>().AsTransient();
          
       }
    }

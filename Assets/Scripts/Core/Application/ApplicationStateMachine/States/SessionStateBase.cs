@@ -22,11 +22,12 @@ namespace Core.Application.ApplicationSession.States
       public virtual void StartClient() { }
       public virtual void StartServer() { }
       public virtual void ServerStartedHandler() { }
-      public virtual void ClientConnectedHandler(ulong id)
+      public virtual void ClientConnectedHandler(ulong id, bool local)
       {
+         
       }
 
-      public virtual void ClientDisconnectHandler(ulong id)
+      public virtual void ClientDisconnectHandler(ulong id, bool local)
       {
       }
 

@@ -8,13 +8,13 @@ namespace Core.Application.ServerCommands
     public class LoginUserCommand
     {
 
-        [Inject] private IMainModelInternal _mainModel;
+        [Inject] private IClientModelInternal _clientModel;
         
         public async Task Execute()
         {
-            var user = new UserModel(12345, "PlayerOne");
+            var user = new User(12345);
             
-            _mainModel.SetUser(user);
+            _clientModel.SetUser(user);
             await Task.Delay(1000);
         }
     }

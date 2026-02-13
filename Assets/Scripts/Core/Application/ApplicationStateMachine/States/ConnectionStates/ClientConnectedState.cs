@@ -4,7 +4,7 @@
     {
         protected override void OnStateEnter()
         {
-            
+            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
         }
         
         

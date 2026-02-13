@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using Core.Application.Models;
+using Core.Domain.Models;
+using Unity.Infrastructure.Network;
 using UnityEngine;
+using Zenject;
 
 namespace Core.Application.ApplicationSession.States
 {
     internal class HostingState : SessionStateBase
     {
+        
+        [Inject] private INetworkController _networkController;
+        [Inject] private IClientModelInternal _clientModel;
         
         private List<ulong> _clients = new();
         
@@ -13,18 +20,30 @@ namespace Core.Application.ApplicationSession.States
             
         }
 
-        public override void ClientConnectedHandler(ulong id)
+        public override void ClientConnectedHandler(ulong id, bool local)
         {
             if (_clients.Contains(id))
             {
                 return;
             }
             _clients.Add(id);
+            if (local)
+            {
+                AddLocalClient(id);
+            }
+            
             Debug.Log("ClientConnected:");
             ShowCurrentClients();
         }
 
-        public override void ClientDisconnectHandler(ulong id)
+        private void AddLocalClient(ulong id)
+        {
+            var user = new User(id);
+            _clientModel.SetUser(user);
+            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
+        }
+        
+        public override void ClientDisconnectHandler(ulong id, bool local)
         {
             if (!_clients.Contains(id))
             {
@@ -34,6 +53,7 @@ namespace Core.Application.ApplicationSession.States
             Debug.Log("ClientDisconnect:");
             ShowCurrentClients();
         }
+        
         
         private void ShowCurrentClients()
         {

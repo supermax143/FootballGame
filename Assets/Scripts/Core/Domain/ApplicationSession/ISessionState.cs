@@ -6,8 +6,8 @@
       void StartClient();
       void StartServer();
       void ServerStartedHandler();
-      void ClientConnectedHandler(ulong id);
-      void ClientDisconnectHandler(ulong id);
+      void ClientConnectedHandler(ulong id, bool local);
+      void ClientDisconnectHandler(ulong id, bool local);
    }
 }
 
