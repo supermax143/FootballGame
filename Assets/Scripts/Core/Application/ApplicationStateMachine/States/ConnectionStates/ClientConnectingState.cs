@@ -21,7 +21,7 @@ namespace Core.Application.ApplicationSession.States
 
         public override void ClientConnectedHandler(ulong id, bool local)
         {
-            if (local)
+            if (!local)
             {
                 return;
             }

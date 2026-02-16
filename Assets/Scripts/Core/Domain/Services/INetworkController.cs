@@ -7,5 +7,6 @@ namespace Unity.Infrastructure.Network
         void StartClient();
         void StartServer();
         bool IsLocalClient(ulong clientId);
+        void Disconnect();
     }
 }

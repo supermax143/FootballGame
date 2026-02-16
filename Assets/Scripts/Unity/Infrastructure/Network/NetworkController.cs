@@ -84,6 +84,11 @@ namespace Unity.Infrastructure.Network
             _networkManager.StartClient();
         }
 
+        public void Disconnect()
+        {
+            _networkManager.Shutdown();
+        }
+        
     }
     
 }

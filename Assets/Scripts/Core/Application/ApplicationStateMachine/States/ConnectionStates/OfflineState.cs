@@ -23,12 +23,13 @@ namespace Core.Application.ApplicationSession.States
       
       public override void StartHost() 
       {
-         _networkController.StartHost();
          ApplicationStateMachine.ChangeState<StartHostingState>();
+         _networkController.StartHost();
       }
 
       public override void StartClient()
       {
+         ApplicationStateMachine.ChangeState<ClientConnectingState>();
          _networkController.StartClient();
       }
    }
