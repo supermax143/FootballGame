@@ -4,12 +4,12 @@ namespace Core.Application.Models
 {
     public interface IClientModel
     {
-        User Client { get; }
+        User User { get; }
     }
     
     internal interface IClientModelInternal : IClientModel
     {
-        void SetUser(User client);
+        void SetUser(User user);
     }
     
 }

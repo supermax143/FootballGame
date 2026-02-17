@@ -5,6 +5,6 @@ namespace Core.Application.Models.Server
 {
     public class ServerModel
     {
-        public List<User> Clients { get; private set; }
+        public List<User> Users { get; private set; }
     }
 }

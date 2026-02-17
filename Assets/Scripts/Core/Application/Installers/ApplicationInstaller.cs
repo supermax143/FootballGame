@@ -1,4 +1,5 @@
 ﻿using Core.Application.ApplicationSession.States;
+using Core.Application.Game;
 using Core.Application.Localization;
 using Core.Application.Models;
 using Core.Application.ServerCommands;
@@ -29,6 +30,9 @@ namespace Core.Application.Installers
          
          //Models
          Container.BindInterfacesAndSelfTo<ClientModel>().AsTransient();
+         
+         //GameController
+         Container.BindInterfacesAndSelfTo<GameSessionController>().AsTransient();
          
       }
    }

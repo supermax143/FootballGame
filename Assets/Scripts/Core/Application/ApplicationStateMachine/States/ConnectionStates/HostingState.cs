@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Application.Game;
 using Core.Application.Models;
 using Core.Domain.Models;
 using Unity.Infrastructure.Network;
@@ -13,9 +14,10 @@ namespace Core.Application.ApplicationSession.States
         
         [Inject] private INetworkController _networkController;
         [Inject] private IClientModelInternal _clientModel;
+        [Inject] private DiContainer _container;
         
         private List<ulong> _clients = new();
-        
+
         protected override Task OnStateEnter()
         {
             ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
@@ -43,6 +45,11 @@ namespace Core.Application.ApplicationSession.States
             {
                 AddLocalClient(id);
             }
+
+            if (_clients.Count == 2)
+            {
+                CreateGameSession(_clients);
+            }
             
             Debug.Log("ClientConnected:");
             ShowCurrentClients();
@@ -65,8 +72,15 @@ namespace Core.Application.ApplicationSession.States
             Debug.Log("ClientDisconnect:");
             ShowCurrentClients();
         }
+
+        private void CreateGameSession(List<ulong> clients)
+        {
+            var gameSession = _container.Resolve<GameSessionController>();
+            gameSession.Initialize(clients);
+        }
         
-        
+
+
         private void ShowCurrentClients()
         {
             foreach (var client in _clients)
