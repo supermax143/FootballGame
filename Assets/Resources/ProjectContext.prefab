@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4875320979819222349}
   - component: {fileID: 8603322561475887378}
   - component: {fileID: 7752799007857361394}
+  - component: {fileID: -7320741554061461216}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _windowsController: {fileID: 4875320979819222349}
   _networkManager: {fileID: 8603322561475887378}
+  _networkController: {fileID: -7320741554061461216}
 --- !u!114 &3856448572725618157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +187,19 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
+--- !u!114 &-7320741554061461216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299838211194370913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b114ef30eb415db23e803c30683012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Infrastructure.Network.NetworkController
+  _networkRPCPrefab: {fileID: 0}
 --- !u!1 &6694253302271421472
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,12 +20,15 @@ namespace Unity.Bootstrap.Installers
       private WindowsController _windowsController;
       [SerializeField, HideInInspector]
       private NetworkManager _networkManager;
+      [SerializeField, HideInInspector]
+      private NetworkController _networkController;
       
       
       private void OnValidate()
       {
          _windowsController = GetComponent<WindowsController>();
          _networkManager = GetComponent<NetworkManager>();
+         _networkController = GetComponent<NetworkController>();
       }
 
 
@@ -38,9 +41,8 @@ namespace Unity.Bootstrap.Installers
          Container.BindInterfacesAndSelfTo<GameInitializer.GameInitializer>().AsSingle();
          Container.BindInterfacesAndSelfTo<ResourceManager>().AsSingle();
          Container.BindInstance(_networkManager).AsSingle().NonLazy();
-         Container.BindInterfacesAndSelfTo<NetworkController>().AsSingle();
-         
-         
+         Container.BindInterfacesAndSelfTo<NetworkController>()
+            .FromInstance(_networkController).AsSingle().NonLazy();
          
          //Initialization
          Container.Bind<InitializeStepBase>().To<InitLocalizationStep>().AsTransient();
