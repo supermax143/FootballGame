@@ -19,6 +19,12 @@ namespace Core.Application.ApplicationSession.States
             return Task.CompletedTask;
         }
 
+        public override void Disconnect()
+        {
+            _networkController.Disconnect();
+            ApplicationStateMachine.ChangeState<OfflineState>();
+        }
+        
         public override void ClientConnectedHandler(ulong id, bool local)
         {
             if (!local)

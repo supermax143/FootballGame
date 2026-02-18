@@ -8,7 +8,7 @@ namespace Unity.Bootstrap.GameInitializer.InitializeSteps
       
       public override async Task Execute()
       {
-         await Task.Delay(1000);//TODO: заглушка
+         await Task.Delay(10);//TODO: заглушка
       }
    }
 }

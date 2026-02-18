@@ -17,16 +17,15 @@ namespace Core.Application.ApplicationSession.States
         [Inject] private DiContainer _container;
         
         private List<ulong> _clients = new();
-
-        protected override Task OnStateEnter()
-        {
-            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
-            return Task.CompletedTask;
-        }
+        
+        private GameSessionController _gameSession;
+        
 
         public override void Disconnect()
         {
             _networkController.StopHost();
+            _clients.Clear();
+            StopGameSession();
         }
 
         public override void ServerStoppedHandler()
@@ -54,13 +53,6 @@ namespace Core.Application.ApplicationSession.States
             Debug.Log("ClientConnected:");
             ShowCurrentClients();
         }
-
-        private void AddLocalClient(ulong id)
-        {
-            var user = new User(id);
-            _clientModel.SetUser(user);
-            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
-        }
         
         public override void ClientDisconnectHandler(ulong id, bool local)
         {
@@ -69,17 +61,44 @@ namespace Core.Application.ApplicationSession.States
                 return;
             }
             _clients.Remove(id);
+            StopGameSessionIfRequire(id);
             Debug.Log("ClientDisconnect:");
             ShowCurrentClients();
         }
 
-        private void CreateGameSession(List<ulong> clients)
+        protected override Task OnStateEnter()
         {
-            var gameSession = _container.Resolve<GameSessionController>();
-            gameSession.Initialize(clients);
+            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
+            return Task.CompletedTask;
         }
         
+        private void StopGameSessionIfRequire(ulong id)
+        {
+            if(_gameSession == null || !_gameSession.HasClient(id))
+            { 
+                return; 
+            }
+            StopGameSession();
+        }
+        
+        private void StopGameSession()
+        {
+            _gameSession.StopGame();
+            _gameSession = null;
+        }
+        
+        private void AddLocalClient(ulong id)
+        {
+            var user = new User(id);
+            _clientModel.SetUser(user);
+            ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
+        }
 
+        private void CreateGameSession(List<ulong> clients)
+        {
+          _gameSession = _container.Resolve<GameSessionController>();
+          _gameSession.Initialize(clients);
+        }
 
         private void ShowCurrentClients()
         {

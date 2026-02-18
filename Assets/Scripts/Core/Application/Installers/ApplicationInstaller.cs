@@ -2,7 +2,6 @@
 using Core.Application.Game;
 using Core.Application.Localization;
 using Core.Application.Models;
-using Core.Application.ServerCommands;
 using Zenject;
 
 namespace Core.Application.Installers
@@ -26,7 +25,6 @@ namespace Core.Application.Installers
          
          
          //Server Commands
-         Container.Bind<LoginUserCommand>().AsTransient();
          
          //Models
          Container.BindInterfacesAndSelfTo<ClientModel>().AsTransient();
