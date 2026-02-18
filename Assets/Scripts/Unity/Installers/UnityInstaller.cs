@@ -46,6 +46,7 @@ namespace Unity.Bootstrap.Installers
             .FromInstance(_networkController).AsSingle().NonLazy();
          Container.BindInterfacesAndSelfTo<NetworkObjectSpawnObserver>().AsSingle().NonLazy();
          
+         
          //Initialization
          Container.Bind<InitializeStepBase>().To<InitLocalizationStep>().AsTransient();
          Container.Bind<InitializeStepBase>().To<LoadAssetsStep>().AsTransient();
