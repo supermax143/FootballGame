@@ -13,6 +13,9 @@ namespace Unity.Infrastructure.Network
         
         [Inject] private IApplicationSession _session;
         [Inject] private NetworkManager _networkManager;
+        [Inject] private DiContainer _container;
+        
+        [InjectOptional]private NetworkRPC _networkRPC;
         
         public void Initialize()
         {
@@ -57,11 +60,25 @@ namespace Unity.Infrastructure.Network
 
         private void ServerStartedHandler()
         {
+            if (_networkRPC == null)
+            {
+                var go = Instantiate(_networkRPCPrefab);
+                go.GetComponent<NetworkObject>().Spawn();
+                //_networkRPC = _container.InjectGameObjectForComponent<NetworkRPC>(go);
+            }
+            
             _session.CurrentState.ServerStartedHandler();
         }
 
         private void ServerStoppedHandler(bool value)
         {
+            // if (_networkRPC != null)
+            // {
+            //     _networkRPC.GetComponent<NetworkObject>().Despawn();
+            //     Destroy(_networkRPC.gameObject);
+            //     _networkRPC = null;
+            // }
+            
             _session.CurrentState.ServerStoppedHandler();
         }
         
@@ -90,25 +107,13 @@ namespace Unity.Infrastructure.Network
         {
             _networkManager.Shutdown();
         }
+
+        public void LoadSceneOnClient(ulong clientId, string sceneName)
+        {
+            _networkRPC.LoadSceneOnClient(clientId, sceneName);
+        }
         
-        // public void LoadSceneOnClient(ulong clientId, string sceneName)
-        // {
-        //     if (!_networkManager.IsServer)
-        //     {
-        //         return;
-        //     }
-        //    
-        //     var rpcParams = new RpcParams();
-        //     rpcParams.Send.Target = RpcTarget.Single(clientId, RpcTargetUse.Temp);
-        //     
-        //     LoadSceneOnClientRPC(sceneName, rpcParams);
-        // }
-        //
-        // [Rpc(SendTo.SpecifiedInParams)]
-        // private void LoadSceneOnClientRPC(string sceneName, RpcParams rpcParams = default)
-        // {
-        //     _scenesLoader.LoadScene(sceneName);
-        // }
+       
         
     }
     

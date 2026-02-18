@@ -19,7 +19,7 @@ namespace Unity.Infrastructure.Scenes
       public async Task  LoadMainMenuScene() => await LoadScene(SceneNames.MainMenuScene);
       public async Task  LoadGameScene() => await LoadScene(SceneNames.GameScene);
 
-      private async Task LoadScene(string scene)
+      public async Task LoadScene(string scene)
       {
          if (CurScene == scene)
          {

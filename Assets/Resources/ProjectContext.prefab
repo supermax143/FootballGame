@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b114ef30eb415db23e803c30683012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity.Infrastructure.Network.NetworkController
-  _networkRPCPrefab: {fileID: 0}
+  _networkRPCPrefab: {fileID: 2353576201024347216, guid: c58a410fd308f874ea73f0a323d893f1, type: 3}
 --- !u!1 &6694253302271421472
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,5 +8,6 @@ namespace Core.Domain.Services
       Task  LoadMainMenuScene();
       Task  LoadGameScene();
       string CurScene { get; }
+      Task LoadScene(string sceneName);
    }
 }

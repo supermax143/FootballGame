@@ -8,6 +8,6 @@ namespace Unity.Infrastructure.Network
         void StartServer();
         bool IsLocalClient(ulong clientId);
         void Disconnect();
-        // void LoadSceneOnClient(ulong clientId, string sceneName);
+        void LoadSceneOnClient(ulong clientId, string sceneName);
     }
 }

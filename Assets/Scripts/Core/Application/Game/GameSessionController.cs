@@ -13,7 +13,7 @@ namespace Core.Application.Game
         {
             foreach (var client in clients)
             {
-                // _networkController.LoadSceneOnClient(client, SceneNames.GameScene);
+                _networkController.LoadSceneOnClient(client, SceneNames.GameScene);
             }
         }
     }
