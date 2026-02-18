@@ -1,6 +1,7 @@
 using Core.Application.ApplicationSession;
 using Core.Application.ApplicationSession.States;
 using Core.Application.Localization;
+using Core.Domain.Services;
 using Unity.Bootstrap.GameInitializer.InitializeSteps;
 using Unity.Infrastructure.Network;
 using Unity.Infrastructure.ResourceManager;
@@ -43,6 +44,7 @@ namespace Unity.Bootstrap.Installers
          Container.BindInstance(_networkManager).AsSingle().NonLazy();
          Container.BindInterfacesAndSelfTo<NetworkController>()
             .FromInstance(_networkController).AsSingle().NonLazy();
+         Container.BindInterfacesAndSelfTo<NetworkObjectSpawnObserver>().AsSingle().NonLazy();
          
          //Initialization
          Container.Bind<InitializeStepBase>().To<InitLocalizationStep>().AsTransient();

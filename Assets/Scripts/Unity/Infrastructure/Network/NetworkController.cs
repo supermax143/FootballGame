@@ -1,4 +1,5 @@
-﻿using Core.Domain.Services.ApplicationSession;
+﻿using Core.Domain.Services;
+using Core.Domain.Services.ApplicationSession;
 using Unity.Netcode;
 using UnityEngine;
 using Zenject;
@@ -14,8 +15,9 @@ namespace Unity.Infrastructure.Network
         [Inject] private IApplicationSession _session;
         [Inject] private NetworkManager _networkManager;
         [Inject] private DiContainer _container;
+        [Inject] private INetworkObjectSpawnObserver _spawnObserver;
         
-        [InjectOptional]private NetworkRPC _networkRPC;
+        private NetworkRPC _networkRPC;
         
         public void Initialize()
         {
@@ -24,7 +26,29 @@ namespace Unity.Infrastructure.Network
             _networkManager.OnClientConnectedCallback += ClientConnectedHandler;
             _networkManager.OnClientDisconnectCallback += ClientDisconnectHandler;
             _networkManager.OnConnectionEvent += ConnectionEventHandler;
+            _spawnObserver.SubscribeSpawn<NetworkRPC>(OnRpcSpawned);
+            _spawnObserver.SubscribeDespawn<NetworkRPC>(OnRpcDespawned);
         }
+
+
+        private void OnRpcSpawned(NetworkRPC rpc)
+        {
+            if (!rpc.IsOwner)
+            {
+                return;
+            }
+            _networkRPC = rpc;
+        }
+        
+        private void OnRpcDespawned(NetworkRPC rpc)
+        {
+            if (!rpc.IsOwner || _networkRPC != rpc)
+            {
+                return;
+            }
+            _networkRPC = null;
+        }
+        
 
         public bool IsLocalClient(ulong clientId)
         {
@@ -60,25 +84,24 @@ namespace Unity.Infrastructure.Network
 
         private void ServerStartedHandler()
         {
-            if (_networkRPC == null)
-            {
-                var go = Instantiate(_networkRPCPrefab);
-                go.GetComponent<NetworkObject>().Spawn();
-                //_networkRPC = _container.InjectGameObjectForComponent<NetworkRPC>(go);
-            }
-            
+            SpawnNetworkRPC();
             _session.CurrentState.ServerStartedHandler();
         }
 
+        private void SpawnNetworkRPC()
+        {
+            if (!_networkManager.IsServer)
+            {
+                return;
+            }
+            var go = Instantiate(_networkRPCPrefab);
+            go.GetComponent<NetworkObject>().Spawn();
+        }
+        
+        
+        
         private void ServerStoppedHandler(bool value)
         {
-            // if (_networkRPC != null)
-            // {
-            //     _networkRPC.GetComponent<NetworkObject>().Despawn();
-            //     Destroy(_networkRPC.gameObject);
-            //     _networkRPC = null;
-            // }
-            
             _session.CurrentState.ServerStoppedHandler();
         }
         
