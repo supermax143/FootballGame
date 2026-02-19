@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Core.Application.ApplicationSession.States
 {
-   internal class InitState : SessionStateBase
+   internal class InitializeState : SessionStateBase
    {
       [Inject] private IScenesLoader _scenesLoader;
       [Inject] private IGameInitializer _gameInitializer;

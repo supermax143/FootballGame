@@ -57,6 +57,10 @@ namespace Unity.Infrastructure.Network
                    clientId == _networkManager.LocalClient.ClientId;
         }
         
+        public bool IsServer => _networkManager.IsServer;
+        public bool IsClient => _networkManager.IsClient;
+        public bool IsHost => _networkManager.IsHost;
+        
         private void ConnectionEventHandler(NetworkManager manager, ConnectionEventData data)
         {
             var local = IsLocalClient(data.ClientId);

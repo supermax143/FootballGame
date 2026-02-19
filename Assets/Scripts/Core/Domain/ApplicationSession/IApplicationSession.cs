@@ -8,6 +8,5 @@ namespace Core.Domain.Services.ApplicationSession
       ISessionState CurrentState { get; }
       ConnectionStatus ConnectionStatus { get; }
       event Action<ConnectionStatus> OnConnectionStatusChanged;
-      event Action<ISessionState> OnStateChanged;
    }
 }

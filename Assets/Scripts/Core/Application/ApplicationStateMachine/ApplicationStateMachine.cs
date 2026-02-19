@@ -10,8 +10,6 @@ namespace Core.Application.ApplicationSession
 
       public event Action<ConnectionStatus> OnConnectionStatusChanged; 
       
-      public event Action<ISessionState> OnStateChanged;
-      
       [Inject] private DiContainer _container;
 
       private ISessionStateInternal _currentState;
@@ -35,7 +33,7 @@ namespace Core.Application.ApplicationSession
 
       public void Initialize()
       {
-         ChangeState<InitState>();
+         ChangeState<InitializeState>();
       }
 
       internal void ChangeState<TState>() where TState : ISessionStateInternal
@@ -53,8 +51,6 @@ namespace Core.Application.ApplicationSession
             
          _currentState = newState;
          _currentState.Enter();
-            
-         OnStateChanged?.Invoke(_currentState);
       }
 
      

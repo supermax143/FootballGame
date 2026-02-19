@@ -14,13 +14,12 @@ namespace Core.Application.Installers
          Container.BindInterfacesAndSelfTo<LocalizationController>().AsSingle();
          
          // Session
-         Container.Bind<InitState>().AsTransient();
+         Container.Bind<InitializeState>().AsTransient();
          Container.Bind<OfflineState>().AsTransient();
          Container.Bind<StartHostingState>().AsTransient();
          Container.Bind<HostingState>().AsTransient();
          Container.Bind<ClientConnectingState>().AsTransient();
          Container.Bind<ClientConnectedState>().AsTransient();
-         Container.Bind<GameState>().AsTransient();
          Container.BindInterfacesAndSelfTo<ApplicationSession.ApplicationStateMachine>().AsSingle().NonLazy();
          
          
