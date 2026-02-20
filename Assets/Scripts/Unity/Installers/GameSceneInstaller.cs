@@ -8,12 +8,14 @@ namespace Unity.Bootstrap.Installers
     {
         
         [SerializeField]
-        private GameSettings _gameSettings;
+        private GameFieldPresenter _gameField;
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameSettings>().FromInstance(_gameSettings).AsSingle();
+            Container.BindInterfacesAndSelfTo<GameSettings>().FromInstance(_gameField).AsSingle();
         }
+        
+        
         
     }
 }
