@@ -9,14 +9,7 @@ namespace Unity.Game
         
         protected override void OnStateEnter()
         {
-            foreach (var spawn in _gameSettings.SpawnPointsTeam1)
-            {
-                spawn.GetComponent<NetworkObject>().Despawn();
-            }
-            foreach (var spawn in _gameSettings.SpawnPointsTeam2)
-            {
-                spawn.gameObject.SetActive(false);
-            }
+            
         }
     }
 }

@@ -1,17 +1,19 @@
-﻿using Unity.Infrastructure.Network;
+﻿using System;
+using Unity.Infrastructure.Network;
+using Unity.Netcode;
 using UnityEngine;
 using Zenject;
 
 namespace Unity.Game
 {
-    internal class GameStateMachine : MonoBehaviour
+    internal class GameStateMachine : NetworkBehaviour
     {
         [Inject] private DiContainer _container;
         [Inject] private INetworkController _networkController;
         
         private GameStateBase _currentState;
 
-        public void Start()
+        public override void OnNetworkSpawn()
         {
             if (!_networkController.IsServer)
             {
@@ -19,7 +21,7 @@ namespace Unity.Game
             }
             ChangeState<InitializeGameState>();
         }
-
+        
         internal void ChangeState<TState>() where TState : GameStateBase
         {
             var newState = _container.InstantiateComponent<TState>(gameObject);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 namespace Unity.Infrastructure.Network.RPC
 {
@@ -7,7 +8,8 @@ namespace Unity.Infrastructure.Network.RPC
     {
         public void LoadSceneOnClient(ulong clientId, string sceneName)
         {
-            LoadSceneOnClientRPC(sceneName, ClientParams(clientId));
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            //LoadSceneOnClientRPC(sceneName, ClientParams(clientId));
         }
         
         [Rpc(SendTo.SpecifiedInParams)]
