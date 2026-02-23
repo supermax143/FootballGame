@@ -10,6 +10,7 @@
       void ClientDisconnectHandler(ulong id, bool local);
       void Disconnect();
       void ServerStoppedHandler();
+      void StartOffline();
    }
 }
 

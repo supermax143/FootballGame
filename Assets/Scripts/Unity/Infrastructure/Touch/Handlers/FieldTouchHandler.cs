@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
 {
-    public class FieldTouchHandler : ITouchHandler
+    public class FieldTouchHandler : ITouchHandler, IInitializable
     {
         public event Action<TouchData> OnLandClick;
         
@@ -20,6 +20,11 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
         public TouchHandlerType Type => TouchHandlerType.GameField;
 
         private ClickHandleComponent _curTarget;
+        
+        public void Initialize()
+        {
+            _touchController.AddHandler(this);
+        }
         
         public bool OnTouchBegin(IReadOnlyCollection<TouchData> touches)
         { 
@@ -86,6 +91,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
 
             return hit.collider && hit.collider.TryGetComponent(out target);
         }
-        
+
+       
     }
 }

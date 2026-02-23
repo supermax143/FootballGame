@@ -17,6 +17,7 @@ namespace Unity.Presentation
 		public event Action OnHostClicked;
 		public event Action OnClientClicked;
 		public event Action OnDisconnectClicked;
+		public event Action OnStartOfflineClicked;
 		
 		public event Action<string> OnLanguageChanged;
 		
@@ -55,5 +56,7 @@ namespace Unity.Presentation
 		public void OnHostClick() => OnHostClicked?.Invoke();
 		public void OnClientClick() => OnClientClicked?.Invoke();
 		public void OnDisconnectClick() => OnDisconnectClicked?.Invoke();
+		public void OnStartOfflineClick() => OnStartOfflineClicked?.Invoke();
+		
 	}
 }

@@ -25,6 +25,7 @@ namespace Unity.Presentation
         {
             _view.OnClientClicked += ClientClickedHandler;
             _view.OnHostClicked += HostClickedHandler;
+            _view.OnStartOfflineClicked += StartOfflineClickedHandler;
             _view.OnLanguageChanged += LanguageChangedHandler;
             _view.OnDisconnectClicked += DisconnectClickedHandler;
             _applicationSession.OnConnectionStatusChanged += ConnectionStatusChangedHandler;
@@ -51,6 +52,10 @@ namespace Unity.Presentation
 
         private void ClientClickedHandler()
             => _applicationSession.CurrentState.StartClient();
+
+        private void StartOfflineClickedHandler()
+            => _applicationSession.CurrentState.StartOffline();
+
         private void DisconnectClickedHandler()
         {
             _applicationSession.CurrentState.Disconnect();
@@ -60,6 +65,7 @@ namespace Unity.Presentation
         {
             _view.OnClientClicked -= ClientClickedHandler;
             _view.OnHostClicked -= HostClickedHandler;
+            _view.OnStartOfflineClicked -= StartOfflineClickedHandler;
             _view.OnLanguageChanged -= LanguageChangedHandler;
             _applicationSession.OnConnectionStatusChanged -= ConnectionStatusChangedHandler;
         }

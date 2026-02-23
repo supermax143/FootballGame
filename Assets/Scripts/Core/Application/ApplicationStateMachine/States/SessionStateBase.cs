@@ -25,7 +25,6 @@ namespace Core.Application.ApplicationSession.States
       public virtual void ServerStartedHandler() { }
       public virtual void ClientConnectedHandler(ulong id, bool local)
       {
-         
       }
 
       public virtual void ClientDisconnectHandler(ulong id, bool local)
@@ -37,6 +36,10 @@ namespace Core.Application.ApplicationSession.States
       }
 
       public virtual void ServerStoppedHandler()
+      {
+      }
+
+      public virtual void StartOffline()
       {
       }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using Core.Application.Game;
+using ModestTree;
 using Unity.Infrastructure.Network;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,8 +12,20 @@ namespace Unity.Game
     {
         [Inject] private DiContainer _container;
         [Inject] private INetworkController _networkController;
+        [Inject] private IGameSessionController _gameSessionController;
         
         private GameStateBase _currentState;
+
+        private void Start()
+        {
+            if (_gameSessionController == null || 
+                _gameSessionController.Clients == null || 
+                !_gameSessionController.Clients.IsEmpty())
+            {
+                return;
+            }
+            ChangeState<InitializeGameOfflineState>();
+        }
 
         public override void OnNetworkSpawn()
         {

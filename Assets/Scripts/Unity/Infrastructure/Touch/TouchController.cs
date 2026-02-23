@@ -15,6 +15,8 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch
     /// Контроллер тачей, ипользуется для определения тачей на карте. в него передаются
     /// хэндлеры и ждут соответствующего тач-события
     /// </summary>
+    ///
+    [RequireComponent(typeof(PointerInputManager))]
     public class TouchController : MonoBehaviour, ITouchController
     {
         [SerializeField, HideInInspector]
@@ -31,6 +33,17 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch
         public bool Blocked => _tokens.Count > 0;
         public event Action OnTouchWithNoHandlers = delegate {  };
 
+        private void OnValidate()
+        {
+            _pointerInputManager = GetComponent<PointerInputManager>();
+        }
+
+        private void Start()
+        {
+            _activeHandlers.Clear();
+            AddListeners();
+        }
+        
         public void Block(ITouchBlocker touchBlocker)
         {
             if (!_tokens.Add(touchBlocker))
@@ -54,16 +67,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch
             AddListeners();
         }
 
-        private void OnValidate()
-        {
-            _pointerInputManager = GetComponent<PointerInputManager>();
-        }
 
-        private void Start()
-        {
-            _activeHandlers.Clear();
-            AddListeners();
-        }
 
         private void AddListeners()
         {

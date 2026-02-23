@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Application.Game;
 using Core.Domain.Services;
 using Shared.Constants;
 using Unity.Infrastructure.Network;
@@ -11,6 +13,8 @@ namespace Core.Application.ApplicationSession.States
 
       [Inject] IScenesLoader _scenesLoader;
       [Inject] INetworkController _networkController;
+      [Inject] GameSessionController _gameSessionController;
+
       
       protected override async Task OnStateEnter()
       {
@@ -31,6 +35,12 @@ namespace Core.Application.ApplicationSession.States
       {
          ApplicationStateMachine.ChangeState<ClientConnectingState>();
          _networkController.StartClient();
+      }
+
+      public override void StartOffline()
+      {
+         _gameSessionController.Initialize(new List<ulong>());
+         _scenesLoader.LoadGameScene();
       }
    }
 }

@@ -16,6 +16,10 @@ namespace Core.Application.Game
         public void Initialize(List<ulong> clients)
         {
             _clients = clients;
+            if (clients.Count == 0)
+            {
+                return;
+            }
             foreach (var client in clients)
             {
                 _networkController.LoadSceneOnClient(client, SceneNames.GameScene);
