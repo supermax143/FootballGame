@@ -15,10 +15,10 @@ namespace Core.Application.ApplicationSession.States
         [Inject] private INetworkController _networkController;
         [Inject] private IClientModelInternal _clientModel;
         [Inject] private DiContainer _container;
+        [Inject] private GameSessionController _gameSession;
         
         private List<ulong> _clients = new();
         
-        private GameSessionController _gameSession;
         
 
         public override void Disconnect()
@@ -96,7 +96,6 @@ namespace Core.Application.ApplicationSession.States
 
         private void CreateGameSession(List<ulong> clients)
         {
-          _gameSession = _container.Resolve<GameSessionController>();
           _gameSession.Initialize(clients);
         }
 

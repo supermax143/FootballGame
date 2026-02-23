@@ -5,12 +5,14 @@ using Zenject;
 
 namespace Core.Application.Game
 {
-    internal class GameSessionController
+    internal class GameSessionController : IGameSessionController
     {
         [Inject] private INetworkController _networkController;
 
         private List<ulong> _clients;
-        
+
+        public List<ulong> Clients => _clients;
+
         public void Initialize(List<ulong> clients)
         {
             _clients = clients;
@@ -27,7 +29,7 @@ namespace Core.Application.Game
 
         public bool HasClient(ulong id)
         {
-            return _clients.Contains(id);
+            return Clients.Contains(id);
         }
     }
 }

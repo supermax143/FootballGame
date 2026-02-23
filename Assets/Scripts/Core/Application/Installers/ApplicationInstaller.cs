@@ -29,7 +29,7 @@ namespace Core.Application.Installers
          Container.BindInterfacesAndSelfTo<ClientModel>().AsTransient();
          
          //GameController
-         Container.BindInterfacesAndSelfTo<GameSessionController>().AsTransient();
+         Container.BindInterfacesAndSelfTo<GameSessionController>().AsSingle();
          
       }
    }
