@@ -19,7 +19,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
         
         public TouchHandlerType Type => TouchHandlerType.GameField;
 
-        private ClickHandleComponent _curTarget;
+        private TouchHandleComponent _curTarget;
         
         public void Initialize()
         {
@@ -50,7 +50,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
                 return;
             }
         
-            _curTarget.OnTouchEnd();
+            _curTarget.HandleTouchEnd();
             _curTarget = null;
         }
 
@@ -60,9 +60,8 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
             {
                 return;
             }
-
-            _curTarget.OnTouchEnd();
-            _curTarget = null;
+            var delta = _cameraController.ScreenToViewportPoint(touches.First().MoveDistance);
+            _curTarget.HandleTouchMove(delta);
         }
 
 
@@ -80,10 +79,10 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
             
             OnLandClick?.Invoke(touch);
             
-            return true;
+            return false;
         }
 
-        private bool TryGetHitTarget(TouchData touch, out ClickHandleComponent target)
+        private bool TryGetHitTarget(TouchData touch, out TouchHandleComponent target)
         {
             target = default;
             var hit = Physics2D.Raycast(_cameraController.ScreenToWorldPoint(touch.MousePosition),
