@@ -1,6 +1,6 @@
 ---
-trigger: always_on
-description: 
+trigger: model_decision
+description: use this rule when work on Architecture specific tasks
 globs: 
 ---
 
