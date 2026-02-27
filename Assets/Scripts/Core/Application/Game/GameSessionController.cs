@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Domain.Models;
 using Shared.Constants;
 using Unity.Infrastructure.Network;
 using Zenject;
@@ -9,20 +11,22 @@ namespace Core.Application.Game
     {
         [Inject] private INetworkController _networkController;
 
-        private List<ulong> _clients;
+        private readonly List<Player> _players = new();
 
-        public List<ulong> Clients => _clients;
+        public IEnumerable<Player> Players => _players;
 
         public void Initialize(List<ulong> clients)
         {
-            _clients = clients;
-            if (clients.Count == 0)
+            if (clients.Count == 0 || clients.Count > 2)
             {
                 return;
             }
-            foreach (var client in clients)
+            _players.Clear();
+            int teamIndex = 0;
+            foreach (var clientId in clients)
             {
-                _networkController.LoadSceneOnClient(client, SceneNames.GameScene);
+                _players.Add(new Player(clientId, $"Player{clientId}", teamIndex++));
+                _networkController.LoadSceneOnClient(clientId, SceneNames.GameScene);
             }
         }
 
@@ -31,9 +35,9 @@ namespace Core.Application.Game
             
         }
 
-        public bool HasClient(ulong id)
+        public bool HasPlayer(ulong id)
         {
-            return Clients.Contains(id);
+            return _players.Any(p => p.Id == id);
         }
     }
 }

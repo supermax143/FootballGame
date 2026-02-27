@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Application.Game;
 using Cysharp.Threading.Tasks;
@@ -24,13 +25,16 @@ namespace Unity.Game
         
         private async Task InitializeGame()
         {
-            var playerPrfab = await _gameSettings.PlayerPrefab.LoadAssetAsync<GameObject>();
-            for (int i = 0; i < _gameSessionController.Clients.Count; i++)
+            var playerPrefab = await _gameSettings.PlayerPrefab.LoadAssetAsync<GameObject>();
+            int index = 0;
+            foreach (var player in _gameSessionController.Players)
             {
-                var clientId = _gameSessionController.Clients[i];
-                var points = _gameFieldPresenter.GetTeamSpawnPoints((uint)i);
-                InitTeam(clientId, points, playerPrfab);
+                var points = _gameFieldPresenter.GetTeamSpawnPoints((uint)index);
+                InitTeam(player.Id, points, playerPrefab);
+                index++;
             }
+            
+            _gameStateManager.ChangeState<InGameState>();
         }
         
         private void InitTeam(ulong clientId, IEnumerable<Transform> placers, GameObject playerPrfab)

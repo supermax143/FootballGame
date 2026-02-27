@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 1787934423668831651}
   - component: {fileID: 2902601109736251704}
   - component: {fileID: 4509253324132186205}
+  - component: {fileID: 3097732503941680035}
   m_Layer: 0
   m_Name: GameStates
   m_TagString: Untagged
@@ -210,4 +211,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5981ef47eab74d61b2f81a68526a0f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameStateMachine
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &3097732503941680035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105194380200789280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e6b0a25f1244af9c87a79df2f62e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameModel
   ShowTopMostFoldoutHeaderGroup: 1

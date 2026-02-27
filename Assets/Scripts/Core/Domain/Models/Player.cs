@@ -1,27 +1,20 @@
 ﻿namespace Core.Domain.Models
 {
-    /// <summary>
-    /// Domain model representing a player in the game.
-    /// Contains pure business logic without Unity dependencies.
-    /// </summary>
+   
     public class Player
     {
-        public enum Team
-        {
-            Team1,
-            Team2
-        }
 
-        public ulong PlayerId { get; }
-        public Team PlayerTeam { get; }
-        public string PlayerName { get; set; }
+        public ulong Id { get; }
+        public string PlayerName { get; }
+        public int TeamIndex { get;}
 
-        public Player(ulong playerId, Team playerTeam, string playerName = "Player")
+        public Player(ulong id, string playerName, int teamIndex)
         {
-            PlayerId = playerId;
-            PlayerTeam = playerTeam;
+            Id = id;
+            TeamIndex = teamIndex;
             PlayerName = playerName;
         }
+
     }
 }
 

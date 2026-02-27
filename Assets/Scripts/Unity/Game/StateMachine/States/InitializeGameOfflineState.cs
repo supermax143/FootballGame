@@ -29,6 +29,7 @@ namespace Unity.Game
                 var points = _gameFieldPresenter.GetTeamSpawnPoints((uint)i);
                 InitTeam((ulong)clientId, points, playerPrfab);
             }
+            _gameStateManager.ChangeState<InGameState>();
         }
         
         private void InitTeam(ulong clientId, IEnumerable<Transform> placers, GameObject playerPrfab)
@@ -36,8 +37,6 @@ namespace Unity.Game
             foreach (var placer in placers)
             {
                 var player = Instantiate(playerPrfab, placer.position, Quaternion.identity, _gameFieldPresenter.GameFieldTransform);
-                // var networkObject = player.GetComponent<NetworkObject>();
-                // networkObject.SpawnWithOwnership(clientId);
             }
         }
     }

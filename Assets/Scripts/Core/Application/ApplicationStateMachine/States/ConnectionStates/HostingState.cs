@@ -74,7 +74,7 @@ namespace Core.Application.ApplicationSession.States
         
         private void StopGameSessionIfRequire(ulong id)
         {
-            if(_gameSession == null || !_gameSession.HasClient(id))
+            if(_gameSession == null || !_gameSession.HasPlayer(id))
             { 
                 return; 
             }

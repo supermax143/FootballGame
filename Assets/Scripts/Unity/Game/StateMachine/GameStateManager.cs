@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Unity.Game
 {
-    internal class GameStateMachine : NetworkBehaviour
+    internal class GameStateManager : NetworkBehaviour
     {
         [Inject] private DiContainer _container;
         [Inject] private INetworkController _networkController;
@@ -19,8 +19,8 @@ namespace Unity.Game
         private void Start()
         {
             if (_gameSessionController == null || 
-                _gameSessionController.Clients == null || 
-                !_gameSessionController.Clients.IsEmpty())
+                _gameSessionController.Players == null || 
+                !_gameSessionController.Players.IsEmpty())
             {
                 return;
             }

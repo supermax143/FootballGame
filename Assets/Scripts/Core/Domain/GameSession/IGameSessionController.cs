@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Core.Domain.Models;
 
 namespace Core.Application.Game
 {
     public interface IGameSessionController
     {
-        List<ulong> Clients { get; }
+        IEnumerable<Player> Players { get; }
     }
 }

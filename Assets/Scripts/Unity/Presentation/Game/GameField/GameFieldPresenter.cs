@@ -9,9 +9,6 @@ namespace Unity.Game
     {
         private GameFieldView _view;
 
-        
-        
-        
         private void OnValidate()
         {
             _view = GetComponent<GameFieldView>();

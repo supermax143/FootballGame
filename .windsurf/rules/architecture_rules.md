@@ -1,21 +1,10 @@
+---
+trigger: always_on
+description: 
+globs: 
+---
 
-# MCP Instructions
-- Always use context7 MCP when I need library/API documentation, code generation, setup or configuratio
-- Use unityMCP to interact with unity editor
-
-# GitHub Copilot Instructions (Unity/C#)
-
-- Target Unity C#; use Unity APIs and patterns.
-- Use `SerializeField` on private fields instead of public fields; keep fields `readonly` where possible.
-- Cache component references in `Awake`; use `Start` for runtime setup that depends on other components.
-- Use `Update` for per-frame logic and `FixedUpdate` for physics; use `Time.deltaTime`/`Time.fixedDeltaTime`.
-- Avoid per-frame allocations and LINQ in hot paths; reuse lists and buffers.
-- Prefer `TryGetComponent` over `GetComponent` when possible.
-- Prefer `ScriptableObject` for data/config instead of hard-coded values.
-- Keep code safe for Unity main thread; avoid threading unless explicitly requested.
-- Follow C# naming: PascalCase for types/methods, camelCase for locals/fields.
-
-# Project Architecture (Deep Hierarchy Diagram
+### Project Architecture (Deep Hierarchy Diagram)
 
 Project
 ├─ Shared                         ← Cross-cutting, data-only layer
@@ -52,3 +41,6 @@ Project
 └─ UI Components            ← Reusable visual components
 
 - Use project architecture to add new files
+- Place domain models in `Core/Domain/Models/`
+- Keep Unity-specific code in Unity layer
+- Maintain clean separation between layers
