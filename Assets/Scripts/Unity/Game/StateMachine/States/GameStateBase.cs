@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Application.Game;
+using UnityEngine;
 using Zenject;
 
 namespace Unity.Game
@@ -7,12 +8,14 @@ namespace Unity.Game
     {
         [Inject] protected GameStateManager _gameStateManager;
         [Inject] protected GameModel _gameModel;
+        [Inject] protected IGameSessionController _gameSession;
         
         private void Start()
         {
             OnStateEnter();
         }
 
+        
 
         private void OnDestroy()
         {

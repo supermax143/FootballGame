@@ -12,13 +12,17 @@ namespace Core.Application.Game
         [Inject] private INetworkController _networkController;
 
         private readonly List<Player> _players = new();
-
+        private bool _initialized;
+        
         public IEnumerable<Player> Players => _players;
+
+        public bool Initialized => _initialized;
 
         public void Initialize(List<ulong> clients)
         {
             if (clients.Count == 0 || clients.Count > 2)
             {
+                _initialized = true;
                 return;
             }
             _players.Clear();
@@ -28,6 +32,8 @@ namespace Core.Application.Game
                 _players.Add(new Player(clientId, $"Player{clientId}", teamIndex++));
                 _networkController.LoadSceneOnClient(clientId, SceneNames.GameScene);
             }
+
+            _initialized = true;
         }
 
         public void StopGame()

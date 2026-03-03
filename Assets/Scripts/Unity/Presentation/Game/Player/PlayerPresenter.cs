@@ -13,9 +13,7 @@ namespace Unity.Game
     /// Presenter component for Player.
     /// Coordinates between the domain model and the view.
     /// </summary>
-    [RequireComponent(typeof(PlayerView))]
-    [RequireComponent(typeof(NetworkObject))]
-    public class PlayerPresenter : MonoBehaviour
+    public class PlayerPresenter : NetworkBehaviour
     {
         [SerializeField, HideInInspector]
         private PlayerView _view;
@@ -26,6 +24,7 @@ namespace Unity.Game
 
         [Inject] private GameSettings _gameSettings;
         [Inject] private ICameraController _cameraController;
+        [Inject] private IGameModel _gameModel;
         
         private Player _playerModel;
 
@@ -39,17 +38,23 @@ namespace Unity.Game
         private void Start()
         {
             _touchHandler.OnTouchMove += HandleTouchMove;
+            
+            Initialize();
         }
 
+        private void Initialize()
+        {
+            if (!_gameModel.TryGetPlayer(OwnerClientId ,out _playerModel))
+            {
+                return;
+            }
+            UpdateView();
+        }
+        
         private void HandleTouchMove(Vector2 obj)
         {
         }
 
-        public void Initialize(Player player)
-        {
-            _playerModel = player;
-            UpdateView();
-        }
 
        
         private void UpdateView()

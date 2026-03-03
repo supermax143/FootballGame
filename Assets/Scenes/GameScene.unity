@@ -1284,6 +1284,7 @@ MonoBehaviour:
   _gameSettings: {fileID: 11400000, guid: a719af7b35a7c344389ff1b25c5aaea5, type: 2}
   _touchController: {fileID: 1917690197}
   _cameraController: {fileID: 897206332}
+  _gameModel: {fileID: 1930262666365239070}
 --- !u!1 &1658264673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,6 +2274,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2210838711
       objectReference: {fileID: 0}
+    - target: {fileID: 6105194380200789280, guid: 57025f427ee45a14cabde1e26fab695d, type: 3}
+      propertyPath: m_Name
+      value: Game
+      objectReference: {fileID: 0}
     - target: {fileID: 8924458149303685543, guid: 57025f427ee45a14cabde1e26fab695d, type: 3}
       propertyPath: _camera
       value: 
@@ -2282,6 +2287,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57025f427ee45a14cabde1e26fab695d, type: 3}
+--- !u!114 &1930262666365239070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3097732503941680035, guid: 57025f427ee45a14cabde1e26fab695d, type: 3}
+  m_PrefabInstance: {fileID: 1930262666365239069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e6b0a25f1244af9c87a79df2f62e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameModel
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
