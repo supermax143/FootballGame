@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using Core.Domain.Models;
+using Environments.Common.Scripts;
 using Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers;
 using Unity.Infrastructure.Camera;
 using Unity.Infrastructure.Network;
@@ -14,6 +15,8 @@ namespace Unity.Game
     public class PlayerPresenter : NetworkBehaviour
     {
         public event Action<PlayerPresenter, Vector2> OnTouchInputMove;
+        public event Action<PlayerPresenter, Vector2> OnTouchInputStart;
+        public event Action<PlayerPresenter> OnTouchInputEnd;
         
         
         [SerializeField, HideInInspector]
@@ -21,8 +24,8 @@ namespace Unity.Game
         [SerializeField, HideInInspector]
         private TouchHandleComponent _touchHandler;
         [SerializeField, HideInInspector]
-        private NetworkObject _networkObject;
-
+        private Rigidbody2D _rigidbody2D;
+        
         [Inject] private GameSettings _gameSettings;
         [Inject] private ICameraController _cameraController;
         [Inject] private IGameModel _gameModel;
@@ -37,13 +40,16 @@ namespace Unity.Game
         {
             _view = GetComponent<PlayerView>();
             _touchHandler = GetComponent<TouchHandleComponent>();
-            _networkObject = GetComponent<NetworkObject>();
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
         
 
         public override void OnNetworkSpawn()
         {
             _touchHandler.OnTouchMove += HandleTouchMove;
+            _touchHandler.OnTouchBegin += HandleTouchBegin;
+            _touchHandler.OnTouchEnd += HandleTouchEnd;
+            
             Initialize();
             _spawnHandler.RaiseSpawnEvent(this);
         }
@@ -63,6 +69,16 @@ namespace Unity.Game
         {
             OnTouchInputMove?.Invoke(this, touchMove);
         }
+        
+        private void HandleTouchBegin(Vector2 touchPosition)
+        {
+            OnTouchInputStart?.Invoke(this, touchPosition);
+        }
+        
+        private void HandleTouchEnd()
+        {
+            OnTouchInputEnd?.Invoke(this);
+        }
        
         private void UpdateView()
         {
@@ -75,7 +91,7 @@ namespace Unity.Game
 
         public void ApplyForce(Vector2 force)
         {
-            throw new NotImplementedException();
+            _rigidbody2D.AddForce(force * 10, ForceMode2D.Impulse);
         }
     }
 }

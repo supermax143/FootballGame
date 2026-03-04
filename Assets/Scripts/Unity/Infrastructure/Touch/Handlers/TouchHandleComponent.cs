@@ -6,7 +6,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
 {
     public class TouchHandleComponent : MonoBehaviour
     {
-        public event Action<TouchData> OnTouchBegin;
+        public event Action<Vector2> OnTouchBegin;
         public event Action OnTouchEnd;
         public event Action<Vector2> OnTouchMove;
         public event Action OnClick;
@@ -14,7 +14,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
         
         public void HandleTouchBegin(TouchData touch)
         {
-            OnTouchBegin?.Invoke(touch);
+            OnTouchBegin?.Invoke(touch.MousePosition);
         }
 
         public void HandleTouchEnd()
