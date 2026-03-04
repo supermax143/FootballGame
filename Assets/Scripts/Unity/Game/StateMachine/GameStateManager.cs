@@ -19,12 +19,15 @@ namespace Unity.Game
         private void Start()
         {
             if (_gameSessionController == null || 
-                _gameSessionController.Players == null || 
-                !_gameSessionController.Players.IsEmpty())
+                !_gameSessionController.Initialized)
             {
                 return;
             }
-            ChangeState<InitializeGameOfflineState>();
+
+            if (_gameSessionController.Players.IsEmpty())
+            {
+                ChangeState<InitializeGameOfflineState>();
+            }
         }
 
         public override void OnNetworkSpawn()

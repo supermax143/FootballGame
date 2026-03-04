@@ -16,7 +16,7 @@ namespace Unity.Game
 
         public Transform GameFieldTransform => _view.transform;
         
-        public IEnumerable<Transform> GetTeamSpawnPoints(uint index)
+        public IEnumerable<Transform> GetTeamSpawnPoints(int index)
         {
             if (index > 1)
                 yield break;

@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 4795133920352927056}
   - component: {fileID: 1908835333040609695}
   - component: {fileID: 1845065265582102191}
+  - component: {fileID: -8357936424092893668}
+  - component: {fileID: -6153943484869563554}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -274,3 +276,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.ZenAutoInjecter
   _containerSource: 0
+--- !u!114 &-8357936424092893668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347710892803585861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab3b6c799b36e04bb7bd862871739e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.PlayerView
+  _spriteRenderer: {fileID: 5658407196708521111}
+--- !u!114 &-6153943484869563554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347710892803585861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f894bf890db463e4187c3c20f0eb6681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.PlayerPresenter
+  ShowTopMostFoldoutHeaderGroup: 1
+  _view: {fileID: -8357936424092893668}
+  _touchHandler: {fileID: 4795133920352927056}
+  _networkObject: {fileID: 2572489589154938081}

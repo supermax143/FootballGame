@@ -1,4 +1,4 @@
-﻿using Environments.Land.Scripts.Runtime.Controllers.Touch;
+using Environments.Land.Scripts.Runtime.Controllers.Touch;
 using Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers;
 using Unity.Game;
 using Unity.Infrastructure.Camera;
@@ -24,6 +24,9 @@ namespace Unity.Bootstrap.Installers
         
         
         
+        [SerializeField]
+        private GameStateManager _gameStateManager;
+        
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<GameFieldPresenter>().FromInstance(_gameField).AsSingle();
@@ -31,6 +34,9 @@ namespace Unity.Bootstrap.Installers
             Container.BindInterfacesAndSelfTo<TouchController>().FromInstance(_touchController).AsSingle();
             Container.BindInterfacesAndSelfTo<CameraController>().FromInstance(_cameraController).AsSingle();
             Container.BindInterfacesAndSelfTo<GameModel>().FromInstance(_gameModel).AsSingle();
+            Container.BindInterfacesAndSelfTo<GameStateManager>().FromInstance(_gameStateManager).AsSingle();
+            
+            
             
             Container.BindInterfacesAndSelfTo<FieldTouchHandler>().AsSingle();
             

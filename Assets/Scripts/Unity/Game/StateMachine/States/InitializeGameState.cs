@@ -26,12 +26,10 @@ namespace Unity.Game
         private async Task InitializeGame()
         {
             var playerPrefab = await _gameSettings.PlayerPrefab.LoadAssetAsync<GameObject>();
-            int index = 0;
             foreach (var player in _gameSessionController.Players)
             {
-                var points = _gameFieldPresenter.GetTeamSpawnPoints((uint)index);
+                var points = _gameFieldPresenter.GetTeamSpawnPoints(player.TeamIndex);
                 InitTeam(player.Id, points, playerPrefab);
-                index++;
             }
             
             _gameStateManager.ChangeState<InGameState>();

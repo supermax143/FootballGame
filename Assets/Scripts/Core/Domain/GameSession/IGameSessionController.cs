@@ -6,5 +6,6 @@ namespace Core.Application.Game
     public interface IGameSessionController
     {
         IEnumerable<Player> Players { get; }
+        bool Initialized { get; }
     }
 }

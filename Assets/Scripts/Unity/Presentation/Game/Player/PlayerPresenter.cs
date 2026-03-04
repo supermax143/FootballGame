@@ -9,10 +9,7 @@ using Zenject;
 
 namespace Unity.Game
 {
-    /// <summary>
-    /// Presenter component for Player.
-    /// Coordinates between the domain model and the view.
-    /// </summary>
+    
     public class PlayerPresenter : NetworkBehaviour
     {
         [SerializeField, HideInInspector]
@@ -34,14 +31,16 @@ namespace Unity.Game
             _touchHandler = GetComponent<TouchHandleComponent>();
             _networkObject = GetComponent<NetworkObject>();
         }
+        
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
+        
             _touchHandler.OnTouchMove += HandleTouchMove;
-            
             Initialize();
         }
 
+        
         private void Initialize()
         {
             if (!_gameModel.TryGetPlayer(OwnerClientId ,out _playerModel))
@@ -49,10 +48,12 @@ namespace Unity.Game
                 return;
             }
             UpdateView();
+            Show();
         }
         
-        private void HandleTouchMove(Vector2 obj)
+        private void HandleTouchMove(Vector2 delta)
         {
+            
         }
 
 
@@ -67,6 +68,9 @@ namespace Unity.Game
             _view.SetSpriteColor(color);
         }
 
+        private void Show() => gameObject.SetActive(true);
+        private void Hide() => gameObject.SetActive(false);
+        
     }
 }
 

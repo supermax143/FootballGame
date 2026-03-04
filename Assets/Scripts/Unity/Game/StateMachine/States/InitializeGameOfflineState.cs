@@ -26,7 +26,7 @@ namespace Unity.Game
             for (int i = 0; i < 2; i++)
             {
                 var clientId = i;
-                var points = _gameFieldPresenter.GetTeamSpawnPoints((uint)i);
+                var points = _gameFieldPresenter.GetTeamSpawnPoints(i);
                 InitTeam((ulong)clientId, points, playerPrfab);
             }
             _gameStateManager.ChangeState<InGameState>();
