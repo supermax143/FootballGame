@@ -23,11 +23,10 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
             OnTouchEnd?.Invoke();
         }
         
-        public void HandleTouchMove(Vector2 delta)
+        public void HandleTouchMove(Vector2 touchMove)
         {
-            transform.Translate(-delta);
-            Debug.Log($"HandleTouchMove: {delta}");
-            OnTouchMove?.Invoke(delta);
+            Debug.Log($"HandleTouchMove: {touchMove}");
+            OnTouchMove?.Invoke(touchMove);
         }
        
         public bool HandleClick()

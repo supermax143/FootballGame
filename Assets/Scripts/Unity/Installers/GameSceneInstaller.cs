@@ -21,7 +21,8 @@ namespace Unity.Bootstrap.Installers
         private CameraController _cameraController;
         [SerializeField]
         private GameModel _gameModel;
-        
+        [SerializeField]
+        private GameController _gameController;
         
         
         [SerializeField]
@@ -29,13 +30,13 @@ namespace Unity.Bootstrap.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameFieldPresenter>().FromInstance(_gameField).AsSingle();
             Container.BindInterfacesAndSelfTo<GameSettings>().FromInstance(_gameSettings).AsSingle();
             Container.BindInterfacesAndSelfTo<TouchController>().FromInstance(_touchController).AsSingle();
             Container.BindInterfacesAndSelfTo<CameraController>().FromInstance(_cameraController).AsSingle();
             Container.BindInterfacesAndSelfTo<GameModel>().FromInstance(_gameModel).AsSingle();
             Container.BindInterfacesAndSelfTo<GameStateManager>().FromInstance(_gameStateManager).AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<GameController>().FromInstance(_gameController).AsSingle();
+            Container.BindInterfacesAndSelfTo<GameFieldPresenter>().FromInstance(_gameField).AsSingle();
             
             
             Container.BindInterfacesAndSelfTo<FieldTouchHandler>().AsSingle();

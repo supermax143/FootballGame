@@ -1285,6 +1285,7 @@ MonoBehaviour:
   _touchController: {fileID: 1917690197}
   _cameraController: {fileID: 897206332}
   _gameModel: {fileID: 1930262666365239070}
+  _gameController: {fileID: 1930262666365239075}
   _gameStateManager: {fileID: 1930262666365239072}
 --- !u!1 &1658264673
 GameObject:
@@ -2306,6 +2307,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5981ef47eab74d61b2f81a68526a0f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameStateMachine
+--- !u!114 &1930262666365239075 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6684832957086689295, guid: 57025f427ee45a14cabde1e26fab695d, type: 3}
+  m_PrefabInstance: {fileID: 1930262666365239069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0bcd14744a4db5b39529b5e14456e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

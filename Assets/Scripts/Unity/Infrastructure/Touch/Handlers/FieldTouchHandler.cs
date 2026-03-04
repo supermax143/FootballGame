@@ -60,8 +60,7 @@ namespace Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers
             {
                 return;
             }
-            var delta = _cameraController.ScreenToViewportPoint(touches.First().MoveDistance);
-            _curTarget.HandleTouchMove(delta);
+            _curTarget.HandleTouchMove(-touches.First().MoveDistance);
         }
 
 

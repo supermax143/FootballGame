@@ -14,11 +14,11 @@ namespace Unity.Infrastructure.Camera
 
 
         public Vector3 ScreenToViewportPoint(Vector3 screenCoordinates) =>
-            Camera.ScreenToViewportPoint(screenCoordinates) * ScaleFactor;
+            _camera.ScreenToViewportPoint(screenCoordinates) * ScaleFactor;
 
-        public Vector3 ScreenToWorldPoint(Vector3 screenCoordinates) => Camera.ScreenToWorldPoint(screenCoordinates);
+        public Vector3 ScreenToWorldPoint(Vector3 screenCoordinates) => _camera.ScreenToWorldPoint(screenCoordinates);
 
-        public Ray GetCameraRay(Vector3 screenCoordinates) => Camera.ScreenPointToRay(screenCoordinates);
+        public Ray GetCameraRay(Vector3 screenCoordinates) => _camera.ScreenPointToRay(screenCoordinates);
 
     }
 }
