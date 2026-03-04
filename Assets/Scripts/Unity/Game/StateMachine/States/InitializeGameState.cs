@@ -25,6 +25,11 @@ namespace Unity.Game
         
         private async Task InitializeGame()
         {
+            _gameModel.Initialize();
+            var playerId = _gameSession.Players
+                .ToArray()[Random.Range(0, _gameSession.Players.Count())].Id;
+            _gameModel.SetActivePlayerId(playerId);
+            
             var playerPrefab = await _gameSettings.PlayerPrefab.LoadAssetAsync<GameObject>();
             foreach (var player in _gameSessionController.Players)
             {

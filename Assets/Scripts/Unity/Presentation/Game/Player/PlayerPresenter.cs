@@ -23,7 +23,7 @@ namespace Unity.Game
         [Inject] private ICameraController _cameraController;
         [Inject] private IGameModel _gameModel;
         
-        private Player _playerModel;
+        private PlayerData _player;
 
         private void OnValidate()
         {
@@ -43,7 +43,7 @@ namespace Unity.Game
         
         private void Initialize()
         {
-            if (!_gameModel.TryGetPlayer(OwnerClientId ,out _playerModel))
+            if (!_gameModel.TryGetPlayer(OwnerClientId ,out _player))
             {
                 return;
             }
@@ -60,11 +60,7 @@ namespace Unity.Game
        
         private void UpdateView()
         {
-            if (_playerModel == null || _view == null)
-                return;
-
-            var color = _playerModel.TeamIndex == 0 ? _gameSettings.Team1Color : _gameSettings.Team2Color;
-            
+            var color = _player.TeamIndex == 0 ? _gameSettings.Team1Color : _gameSettings.Team2Color;
             _view.SetSpriteColor(color);
         }
 

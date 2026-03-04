@@ -10,9 +10,7 @@ namespace Unity.Game
         
         protected override void OnStateEnter()
         {
-            var playerId = _gameSession.Players
-                .ToArray()[Random.Range(0, _gameSession.Players.Count())].Id;
-            _gameModel.SetActivePlayerId(playerId);
+            
         }
     }
 }
