@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Application.Game;
-using Core.Application.Models;
 using Core.Domain.Models;
 using Unity.Infrastructure.Network;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace Core.Application.ApplicationSession.States
     {
         
         [Inject] private INetworkController _networkController;
-        [Inject] private IClientModelInternal _clientModel;
         [Inject] private DiContainer _container;
         [Inject] private GameSessionController _gameSession;
         
@@ -89,8 +87,6 @@ namespace Core.Application.ApplicationSession.States
         
         private void AddLocalClient(ulong id)
         {
-            var user = new User(id);
-            _clientModel.SetUser(user);
             ApplicationStateMachine.ConnectionStatus = ConnectionStatus.Connected;
         }
 

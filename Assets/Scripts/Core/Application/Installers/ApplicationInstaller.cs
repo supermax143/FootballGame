@@ -1,7 +1,6 @@
 ﻿using Core.Application.ApplicationSession.States;
 using Core.Application.Game;
 using Core.Application.Localization;
-using Core.Application.Models;
 using Zenject;
 
 namespace Core.Application.Installers
@@ -24,9 +23,6 @@ namespace Core.Application.Installers
          
          
          //Server Commands
-         
-         //Models
-         Container.BindInterfacesAndSelfTo<ClientModel>().AsTransient();
          
          //GameController
          Container.BindInterfacesAndSelfTo<GameSessionController>().AsSingle();
