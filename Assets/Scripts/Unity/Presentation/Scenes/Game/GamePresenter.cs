@@ -8,7 +8,7 @@ using Zenject;
 namespace Unity.Presentation
 {
     [RequireComponent(typeof(GameView))]
-    public class GemePresenter : MonoBehaviour
+    public class GamePresenter : MonoBehaviour
     {
         [SerializeField, HideInInspector]
         private GameView _view;

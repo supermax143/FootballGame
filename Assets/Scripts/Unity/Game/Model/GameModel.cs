@@ -8,6 +8,9 @@ namespace Unity.Game
 {
     public class GameModel : NetworkBehaviour, IGameModel
     {
+        
+        
+        
         [Inject] private IGameSessionController _gameSession;
         
         
@@ -39,11 +42,11 @@ namespace Unity.Game
 
         public void Initialize()
         {
-            
             if (!IsServer)
             {
                 return;
             }
+            
             UpdatePlayersFromSession();
         }
         

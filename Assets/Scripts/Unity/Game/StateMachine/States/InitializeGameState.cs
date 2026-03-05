@@ -30,8 +30,9 @@ namespace Unity.Game
                 .ToArray()[Random.Range(0, _gameSession.Players.Count())].Id;
             _gameModel.SetActivePlayerId(playerId);
 
+            var prefabAsset = _gameSettings.PlayerPrefab;
             var playerPrefab =
-                await _gameSettings.PlayerPrefab.LoadAssetReference<GameObject>(_gameSettings.PlayerPrefab.AssetGUID);
+                await prefabAsset.LoadAssetReference<GameObject>(prefabAsset.AssetGUID);
             foreach (var player in _gameSessionController.Players)
             {
                 var points = _gameFieldPresenter.GetTeamSpawnPoints(player.TeamIndex);
