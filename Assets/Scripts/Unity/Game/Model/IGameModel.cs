@@ -9,5 +9,7 @@ namespace Unity.Game
         NetworkVariable<ulong> ActivePlayerId { get; }
         NetworkList<PlayerData> Players { get; }
         bool TryGetPlayer(ulong clientId, out PlayerData player);
+        bool IsLocalPlayerTurn { get; }
+        void EndTurn();
     }
 }

@@ -16,6 +16,7 @@ namespace Unity.Game
         [Inject] private INetworkObjectSpawnObserver _spawnObserver;
         [Inject] private ICameraController _cameraController;
         [Inject] private IGameController _gameController;
+        [Inject] private IGameModel _gameModel;
         
         [SerializeField, HideInInspector]
         private GameFieldView _view;
@@ -57,23 +58,38 @@ namespace Unity.Game
 
         private void HandleTouchInputEnd(PlayerPresenter player)
         {
-            var moveForce = _endPoint - _startPoint;
-            if (moveForce.magnitude > 0f)
+            if (!_gameModel.IsLocalPlayerTurn)
             {
-                var force = _cameraController.ScreenToViewportPoint(moveForce); 
-                player.ApplyForce(force);
+                return;
             }
+            
+            var moveForce = _endPoint - _startPoint;
+            if (moveForce.magnitude == 0)
+            {
+                return;
+            }
+            
+            
+            _gameController.MakeTurn(player.PlayerId, moveForce);
+           
+            
         }
 
         private void HandleTouchInputStart(PlayerPresenter player, Vector2 touchPosition)
         {
+            if (!_gameModel.IsLocalPlayerTurn)
+            {
+                return;
+            }
             _startPoint = _endPoint = touchPosition;
         }
 
         private void HandleTouchInputMove(PlayerPresenter player, Vector2 touchMove)
         {
-            // var delta = _cameraController.ScreenToViewportPoint(touchMove);
-            // player.transform.Translate(delta);
+            if (!_gameModel.IsLocalPlayerTurn)
+            {
+                return;
+            }
             _endPoint += touchMove;
         }
 
@@ -83,11 +99,11 @@ namespace Unity.Game
             {
                 Debug.Log($"Can't find player {clientId}");
             }
-
-            player.ApplyForce(force);
+            var actualForce = _cameraController.ScreenToViewportPoint(force); 
+            player.ApplyForce(actualForce);
         }
 
-        private bool TryGetPlayer(ulong clientId, out PlayerPresenter player)
+        public bool TryGetPlayer(ulong clientId, out PlayerPresenter player)
         {
             player = _players.FirstOrDefault(p => p.PlayerId == clientId);
             return player != null;
