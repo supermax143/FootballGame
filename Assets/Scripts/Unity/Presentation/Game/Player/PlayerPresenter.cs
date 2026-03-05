@@ -31,7 +31,6 @@ namespace Unity.Game
         [Inject] private IGameModel _gameModel;
         [Inject] private INetworkObjectSpawnHandler _spawnHandler;
         
-        
         private PlayerData _player;
 
         public ulong PlayerId => _player.Id;
@@ -82,7 +81,8 @@ namespace Unity.Game
        
         private void UpdateView()
         {
-            var color = _player.TeamIndex == 0 ? _gameSettings.Team1Color : _gameSettings.Team2Color;
+            var color = _player.TeamIndex == 0 ? 
+                _gameSettings.Team1Color : _gameSettings.Team2Color;
             _view.SetSpriteColor(color);
         }
 

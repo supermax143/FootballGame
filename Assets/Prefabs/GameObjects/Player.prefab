@@ -140,11 +140,11 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
   AutoOwnerAuthorityTickOffset: 1
-  PositionInterpolationType: 0
+  PositionInterpolationType: 1
   RotationInterpolationType: 0
-  ScaleInterpolationType: 0
-  PositionLerpSmoothing: 1
-  PositionMaxInterpolationTime: 0.1
+  ScaleInterpolationType: 2
+  PositionLerpSmoothing: 0
+  PositionMaxInterpolationTime: 0.08
   RotationLerpSmoothing: 1
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
@@ -169,7 +169,7 @@ MonoBehaviour:
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!50 &2873283353926601874
 Rigidbody2D:
@@ -196,7 +196,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &3252741218542444372
 CircleCollider2D:
@@ -304,4 +304,4 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _view: {fileID: -8357936424092893668}
   _touchHandler: {fileID: 4795133920352927056}
-  _networkObject: {fileID: 2572489589154938081}
+  _rigidbody2D: {fileID: 2873283353926601874}

@@ -1725,6 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ce88568665432585a18acfa56808d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameFieldPresenter
+  _view: {fileID: 1823785404}
 --- !u!114 &1823785404
 MonoBehaviour:
   m_ObjectHideFlags: 0
