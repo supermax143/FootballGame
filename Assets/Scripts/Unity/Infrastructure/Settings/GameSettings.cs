@@ -14,13 +14,16 @@ namespace Unity.Infrastructure.Settings
 
         [SerializeField]
         private AssetReference _playerPrefab;
-
+        [SerializeField]
+        private AssetReference _arrowPrefab;
+        
         
         public Color GetTeamColor(int team) 
             => team == 0 ? _team1Color : _team2Color;
         
         
         public AssetReference PlayerPrefab => _playerPrefab;
+        public AssetReference ArrowPrefab => _arrowPrefab;
     }
 }
 

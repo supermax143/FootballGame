@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: bd013abf932112c45a0fe315efc3121e
   m_SerializeEntries:
+  - m_GUID: 5322935300105424c8b7f40e3d84f429
+    m_Address: Assets/Prefabs/GameObjects/Arrow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ae773709fe04b3b43a9eafba1825a46b
     m_Address: Localization
     m_ReadOnly: 0

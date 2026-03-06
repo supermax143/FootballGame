@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Domain.Services;
 using Environments.Common.Scripts;
 using Unity.Infrastructure.Camera;
+using Unity.Infrastructure.Settings;
+using Unity.Presentation.Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Unity.Game
@@ -17,15 +21,23 @@ namespace Unity.Game
         [Inject] private ICameraController _cameraController;
         [Inject] private IGameController _gameController;
         [Inject] private IGameModel _gameModel;
+        [Inject] private GameSettings _settings;
         
         [SerializeField, HideInInspector]
         private GameFieldView _view;
-
+        [SerializeField]
+        private ArrowHolder arrowHolder;
+        
         private readonly List<PlayerPresenter> _players = new();
         public Transform GameFieldTransform => _view.transform;
 
         private Vector2 _startPoint;
         private  Vector2 _endPoint;
+
+        public async Task Initialize()
+        {
+            await arrowHolder.Initialize(_settings.ArrowPrefab);
+        }
         
         
         private void OnValidate()
@@ -82,6 +94,7 @@ namespace Unity.Game
                 return;
             }
             _startPoint = _endPoint = touchPosition;
+            arrowHolder.Show(player.transform.position);
         }
 
         private void HandleTouchInputMove(PlayerPresenter player, Vector2 touchMove)
@@ -91,6 +104,7 @@ namespace Unity.Game
                 return;
             }
             _endPoint += touchMove;
+            //arrowHolder.Show();
         }
 
         public void MovePlayer(ulong clientId, Vector2 force)
