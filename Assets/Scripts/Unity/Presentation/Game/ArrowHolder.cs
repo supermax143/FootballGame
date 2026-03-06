@@ -38,7 +38,7 @@ namespace Unity.Presentation.Game
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             _view.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             var length = _viewSprite.size;
-            length.x = direction.magnitude;
+            length.x = direction.magnitude / _view.transform.lossyScale.x;
             _viewSprite.size = length;
         }
 
