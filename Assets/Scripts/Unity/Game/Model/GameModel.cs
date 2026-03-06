@@ -1,6 +1,7 @@
 using System.Linq;
 using Core.Application.Game;
 using Core.Domain.Models;
+using Unity.Infrastructure.Network;
 using Unity.Netcode;
 using Unity.VisualScripting.Dependencies.NCalc;
 using Zenject;
@@ -11,6 +12,7 @@ namespace Unity.Game
     {
         
         [Inject] private IGameSessionController _gameSession;
+        [Inject] private INetworkController _networkController;
         
         
         private NetworkVariable<ulong> _activePlayerId = new(
@@ -25,8 +27,11 @@ namespace Unity.Game
         
         public NetworkList<PlayerData> Players => _players;
 
+        public PlayerData GetLocalPlayerData()
+            => _players[GetPlayerIndex(_networkController.LocalClientId)];
+        
 
-        public bool IsLocalPlayerTurn => _activePlayerId.Value == OwnerClientId;
+        public bool IsPlayerTurn(ulong clientId) => _activePlayerId.Value == clientId;
         
         public void EndTurn()
         {

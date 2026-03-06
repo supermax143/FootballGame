@@ -58,7 +58,7 @@ namespace Unity.Game
 
         private void HandleTouchInputEnd(PlayerPresenter player)
         {
-            if (!_gameModel.IsLocalPlayerTurn)
+            if (!_gameModel.IsPlayerTurn(player.PlayerId))
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace Unity.Game
 
         private void HandleTouchInputStart(PlayerPresenter player, Vector2 touchPosition)
         {
-            if (!_gameModel.IsLocalPlayerTurn)
+            if (!_gameModel.IsPlayerTurn(player.PlayerId))
             {
                 return;
             }
@@ -86,7 +86,7 @@ namespace Unity.Game
 
         private void HandleTouchInputMove(PlayerPresenter player, Vector2 touchMove)
         {
-            if (!_gameModel.IsLocalPlayerTurn)
+            if (!_gameModel.IsPlayerTurn(player.PlayerId))
             {
                 return;
             }

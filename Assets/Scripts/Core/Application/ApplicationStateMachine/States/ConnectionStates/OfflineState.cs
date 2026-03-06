@@ -11,9 +11,9 @@ namespace Core.Application.ApplicationSession.States
    internal class OfflineState : SessionStateBase
    {
 
-      [Inject] IScenesLoader _scenesLoader;
-      [Inject] INetworkController _networkController;
-      [Inject] GameSessionController _gameSessionController;
+      [Inject] private IScenesLoader _scenesLoader;
+      [Inject] private INetworkController _networkController;
+      [Inject] private GameSessionController _gameSessionController;
 
       
       protected override async Task OnStateEnter()

@@ -56,6 +56,8 @@ namespace Unity.Infrastructure.Network
             return _networkManager.LocalClient != null && 
                    clientId == _networkManager.LocalClient.ClientId;
         }
+
+        public ulong LocalClientId => _networkManager.LocalClientId;
         
         public bool IsServer => _networkManager.IsServer;
         public bool IsClient => _networkManager.IsClient;

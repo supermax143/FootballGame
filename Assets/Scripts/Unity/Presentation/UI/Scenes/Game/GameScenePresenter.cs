@@ -7,18 +7,23 @@ using Zenject;
 
 namespace Unity.Presentation
 {
-    [RequireComponent(typeof(GameView))]
-    public class GamePresenter : MonoBehaviour
+    [RequireComponent(typeof(GameSceneView))]
+    public class GameScenePresenter : MonoBehaviour
     {
         [SerializeField, HideInInspector]
-        private GameView _view;
+        private GameSceneView _view;
 
         [Inject] private IWindowsController _windowsController;
         [Inject] private IApplicationSession _session;
         
         private void OnValidate()
         {
-            _view = GetComponent<GameView>();
+            _view = GetComponent<GameSceneView>();
+        }
+        
+        public void Initialize()
+        {
+            _view.UpdateView();
         }
 
         private void Start()
@@ -37,5 +42,6 @@ namespace Unity.Presentation
         {
             _session.CurrentState.Disconnect();
         }
+
     }
 }

@@ -3,6 +3,7 @@ using Environments.Land.Scripts.Runtime.Controllers.Touch.Handlers;
 using Unity.Game;
 using Unity.Infrastructure.Camera;
 using Unity.Infrastructure.Settings;
+using Unity.Presentation;
 using UnityEngine;
 using Zenject;
 
@@ -23,6 +24,8 @@ namespace Unity.Bootstrap.Installers
         private GameModel _gameModel;
         [SerializeField]
         private GameController _gameController;
+        [SerializeField]
+        private GameScenePresenter _gameScenePresenter;
         
         
         [SerializeField]
@@ -37,7 +40,7 @@ namespace Unity.Bootstrap.Installers
             Container.BindInterfacesAndSelfTo<GameStateManager>().FromInstance(_gameStateManager).AsSingle();
             Container.BindInterfacesAndSelfTo<GameController>().FromInstance(_gameController).AsSingle();
             Container.BindInterfacesAndSelfTo<GameFieldPresenter>().FromInstance(_gameField).AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<GameScenePresenter>().FromInstance(_gameScenePresenter).AsSingle();
             
             Container.BindInterfacesAndSelfTo<FieldTouchHandler>().AsSingle();
             

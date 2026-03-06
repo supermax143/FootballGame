@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Unity.Infrastructure.ResourceManager;
 using Unity.Infrastructure.Settings;
 using Unity.Netcode;
+using Unity.Presentation;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,7 @@ namespace Unity.Game
         [Inject] private GameFieldPresenter _gameFieldPresenter;
         [Inject] private GameSettings _gameSettings;
         [Inject] private IGameSessionController _gameSessionController;
+        [Inject] private IGameController _gameController;
         
         protected override void OnStateEnter()
         {
@@ -38,7 +40,8 @@ namespace Unity.Game
                 var points = _gameFieldPresenter.GetTeamSpawnPoints(player.TeamIndex);
                 InitTeam(player.Id, points, playerPrefab);
             }
-            
+
+            _gameController.Initialize();
             _gameStateManager.ChangeState<InGameState>();
         }
         

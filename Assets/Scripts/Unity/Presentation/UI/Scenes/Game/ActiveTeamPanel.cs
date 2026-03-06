@@ -14,8 +14,7 @@ namespace Unity.Presentation.UI
 
         public void SetActiveTeam(int value)
         {
-            var color = value == 0 ? _gameSettings.Team1Color : _gameSettings.Team2Color;
-            _teamColorImage.color = color;
+            _teamColorImage.color = _gameSettings.GetTeamColor(value);
         }
         
     }

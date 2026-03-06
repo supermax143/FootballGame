@@ -12,5 +12,6 @@ namespace Unity.Infrastructure.Network
         bool IsServer { get; }
         bool IsClient { get; }
         bool IsHost { get; }
+        ulong LocalClientId { get; }
     }
 }

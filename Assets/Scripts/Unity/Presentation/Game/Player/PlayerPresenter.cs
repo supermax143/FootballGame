@@ -81,9 +81,7 @@ namespace Unity.Game
        
         private void UpdateView()
         {
-            var color = _player.TeamIndex == 0 ? 
-                _gameSettings.Team1Color : _gameSettings.Team2Color;
-            _view.SetSpriteColor(color);
+            _view.SetSpriteColor(_gameSettings.GetTeamColor(_player.TeamIndex));
         }
 
         private void Show() => gameObject.SetActive(true);
