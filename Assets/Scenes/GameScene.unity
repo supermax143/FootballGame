@@ -2054,7 +2054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity.Game.GameFieldPresenter
   _view: {fileID: 1823785404}
-  arrowHolder: {fileID: 1633812199}
+  _arrowHolder: {fileID: 1633812199}
 --- !u!114 &1823785404
 MonoBehaviour:
   m_ObjectHideFlags: 0

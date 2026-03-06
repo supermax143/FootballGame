@@ -26,7 +26,7 @@ namespace Unity.Game
         [SerializeField, HideInInspector]
         private GameFieldView _view;
         [SerializeField]
-        private ArrowHolder arrowHolder;
+        private ArrowHolder _arrowHolder;
         
         private readonly List<PlayerPresenter> _players = new();
         public Transform GameFieldTransform => _view.transform;
@@ -36,7 +36,7 @@ namespace Unity.Game
 
         public async Task Initialize()
         {
-            await arrowHolder.Initialize(_settings.ArrowPrefab);
+            await _arrowHolder.Initialize(_settings.ArrowPrefab);
         }
         
         
@@ -81,10 +81,8 @@ namespace Unity.Game
                 return;
             }
             
-            
+            _arrowHolder.Hide();
             _gameController.MakeTurn(player.PlayerId, moveForce);
-           
-            
         }
 
         private void HandleTouchInputStart(PlayerPresenter player, Vector2 touchPosition)
@@ -94,7 +92,7 @@ namespace Unity.Game
                 return;
             }
             _startPoint = _endPoint = touchPosition;
-            arrowHolder.Show(player.transform.position);
+            _arrowHolder.Show(player.transform.position);
         }
 
         private void HandleTouchInputMove(PlayerPresenter player, Vector2 touchMove)
@@ -104,7 +102,7 @@ namespace Unity.Game
                 return;
             }
             _endPoint += touchMove;
-            //arrowHolder.Show();
+            _arrowHolder.Move(_cameraController.ScreenToViewportPoint(touchMove));
         }
 
         public void MovePlayer(ulong clientId, Vector2 force)
